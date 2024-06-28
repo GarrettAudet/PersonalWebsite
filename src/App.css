@@ -1,37 +1,42 @@
-.App {
-  text-align: center;
+:root {
+  --background-color: #FFFFFF;
+  --header-border: #C31815;
+  --text-color: #2A2A2A;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: "Studio Feixen Sans", "Nunito Sans", Montserrat, sans-serif;
+  background-color: var(--background-color);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App {}
+
+@font-face {
+  font-family: 'Studio Feixen Sans';
+  src: url('../public/fonts/StudioFeixenSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@font-face {
+  font-family: 'Studio Feixen Sans';
+  src: url('../public/fonts/StudioFeixenSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
 
-.App-link {
-  color: #61dafb;
+@font-face {
+  font-family: 'Studio Feixen Sans';
+  src: url('../public/fonts/StudioFeixenSans-Semibold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

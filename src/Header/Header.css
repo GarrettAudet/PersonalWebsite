@@ -1,0 +1,22 @@
+/* All Elements of the Header */
+.Header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+    border-bottom: 3px solid var(--header-border);
+}
+
+/* Specific Header Component */
+.HeaderLeft,
+.HeaderRight {
+    display: flex;
+    flex-direction: row;
+}
+
+.HeaderRight {
+    opacity: .5;
+    gap: 30px;
+}
