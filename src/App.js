@@ -3,8 +3,10 @@ import Header from './Header/Header'
 
 function App() {
   return (
-    <div className="App">
-      <Header />
+    <div className="background">
+      <div className="app">
+        <Header />
+      </div>
     </div>
   );
 }

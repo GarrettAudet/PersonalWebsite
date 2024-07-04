@@ -1,15 +1,53 @@
+/* Root Variable Declaration */
 :root {
   --background-color: #FFFFFF;
+  --background-color: #1A191D;
   --header-border: #C31815;
+  --header-border: none;
   --text-color: #2A2A2A;
+  --text-color: #FFFFFF;
 }
 
-body {
-  font-family: "Studio Feixen Sans", "Nunito Sans", Montserrat, sans-serif;
+/* Body Styling */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: var(--background-color);
+  font-family: 'Studio Feixen Sans', 'Nunito Sans', 'Montserrat', sans-serif;
 }
 
-.App {}
+.background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, var(--background-color) 90%, rgb(255, 255, 255, 0));
+  /* Light background color with lines */
+  background-size: 100% 100%, contain;
+}
+
+.background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 10% 100%;
+  /* Adjust the percentage to change column width */
+  pointer-events: none;
+  /* Allows interaction with content */
+}
+
+
+.app {}
 
 @font-face {
   font-family: 'Studio Feixen Sans';
