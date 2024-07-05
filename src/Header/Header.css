@@ -21,8 +21,31 @@
     flex-direction: row;
 }
 
+/* Header Left */
+.collapse-on-hover {
+    white-space: pre;
+    max-width: 1em;
+    overflow: hidden;
+    transition: all .3s ease;
+}
+
+.logo-letter-hide {
+    transition: all .3s ease;
+    opacity: 0;
+}
+
+.delay-75 {
+    transition-delay: 75ms;
+}
+
+.delay-100 {
+    transition-delay: 100ms;
+}
+
 .header-left::after {}
 
+
+/* Header Right */
 .header-right {
     gap: 30px;
 }
