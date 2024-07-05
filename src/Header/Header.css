@@ -5,10 +5,10 @@
 /* All Elements of the Header */
 .header {
     display: flex;
+    flex-direction: row;
     box-sizing: border-box;
     width: 100%;
     padding: 1.5rem 3rem;
-    flex-direction: row;
     justify-content: space-between;
     color: var(--text-color);
     font-weight: 500;
@@ -22,11 +22,11 @@
 }
 
 .header-right {
-    opacity: 0.5;
     gap: 30px;
 }
 
 .header-right div {
+    opacity: 0.5;
     transition: color 0.3s ease;
 }
 
