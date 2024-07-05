@@ -21,17 +21,43 @@
     flex-direction: row;
 }
 
-/* Header Left */
+/* First and Last Name */
+.first-name,
+.last-name {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
 .collapse-on-hover {
+    display: inline-block;
     white-space: pre;
-    max-width: 1em;
     overflow: hidden;
+    max-width: 1em;
     transition: all .3s ease;
 }
 
 .logo-letter-hide {
     transition: all .3s ease;
     opacity: 0;
+}
+
+/* Header Left */
+.header-left {
+    display: flex;
+}
+
+.logo-letter-hide {
+    transition: all .3s ease;
+    opacity: 0;
+}
+
+.header-left:hover .collapse-on-hover {
+    opacity: 0;
+    max-width: 0em;
+}
+
+.header-left:hover .logo-letter-hide {
+    opacity: 1;
 }
 
 .delay-75 {
@@ -41,9 +67,6 @@
 .delay-100 {
     transition-delay: 100ms;
 }
-
-.header-left::after {}
-
 
 /* Header Right */
 .header-right {
