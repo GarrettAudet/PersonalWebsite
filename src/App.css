@@ -1,34 +1,47 @@
 /* Root Variable Declaration */
 :root {
+  --background-color-main: #121212;
+  /* --background-color-offset: #1C1C1C; */
+  --background-color-offset: #1F1F1F;
   --background-color: #FFFFFF;
-  --background-color: #1A191D;
+  --column-color: #F5F5F5;
   --header-border: #C31815;
   --header-border: none;
   --text-color: #2A2A2A;
   --text-color: #FFFFFF;
 }
 
-/* Body Styling */
 html,
 body,
 #root {
   margin: 0;
-  padding: 0;
   height: 100%;
+}
+
+.background {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Studio Feixen Sans', 'Nunito Sans', 'Montserrat', sans-serif;
+
+  /* Background color */
+  background: linear-gradient(135deg, var(--background-color-main) 0%, var(--background-color-offset) 50%, var(--background-color-main) 100%);
+}
+
+.app {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-color);
-  font-family: 'Studio Feixen Sans', 'Nunito Sans', 'Montserrat', sans-serif;
 }
 
+/* 
 .background {
   position: relative;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, var(--background-color) 90%, rgb(255, 255, 255, 0));
-  /* Light background color with lines */
+  background: linear-gradient(135deg, #1a1a1a 25%, #0d0d0d 75%);
   background-size: 100% 100%, contain;
 }
 
@@ -39,14 +52,12 @@ body,
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-image: linear-gradient(to right, var(--column-color) 1px, transparent 1px);
   background-size: 10% 100%;
-  /* Adjust the percentage to change column width */
   pointer-events: none;
-  /* Allows interaction with content */
 }
 
-
+*/
 .app {}
 
 @font-face {
