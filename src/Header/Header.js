@@ -12,6 +12,7 @@ function Header () {
                 <span className="logo-letter-hide delay-100">com</span>
             </div>
             <div className="header-right">
+                <div>About</div>
                 <div>Projects</div>
                 <div>Writing</div>
                 <div>Contact</div>
