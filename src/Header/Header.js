@@ -1,19 +1,18 @@
 import React from 'react';
 import './Header.css'
+import '../App.css'
 
 function Header () {
     return (
-        <div className = "app">
-            <div className = "header">
-                <div className = "header-left">garrett audet</div>
-                <div className = "header-right">
-                    <div>Header</div>
-                    <div>Projects</div>
-                    <div>Writing</div>
-                    <div>Contact</div>
-                </div>
+        <div className="header">
+            <div className="header-left">garrett audet</div>
+            <div className="header-right">
+                <div>Header</div>
+                <div>Projects</div>
+                <div>Writing</div>
+                <div>Contact</div>
             </div>
-        </div>
+      </div>
     );
 }
 
