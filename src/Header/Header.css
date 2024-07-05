@@ -21,6 +21,8 @@
     flex-direction: row;
 }
 
+.header-left::after {}
+
 .header-right {
     gap: 30px;
 }
