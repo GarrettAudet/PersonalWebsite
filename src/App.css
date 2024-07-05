@@ -16,49 +16,19 @@ body,
 #root {
   margin: 0;
   height: 100%;
+  width: 100%;
 }
 
 .background {
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   font-family: 'Studio Feixen Sans', 'Nunito Sans', 'Montserrat', sans-serif;
 
   /* Background color */
   background: linear-gradient(135deg, var(--background-color-main) 0%, var(--background-color-offset) 50%, var(--background-color-main) 100%);
 }
-
-.app {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 
-.background {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #1a1a1a 25%, #0d0d0d 75%);
-  background-size: 100% 100%, contain;
-}
-
-.background::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to right, var(--column-color) 1px, transparent 1px);
-  background-size: 10% 100%;
-  pointer-events: none;
-}
-
-*/
-.app {}
 
 @font-face {
   font-family: 'Studio Feixen Sans';
