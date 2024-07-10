@@ -1,0 +1,20 @@
+.carousal-container {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.gallery {
+    position: relative;
+    width: 15rem;
+    top: 6.5rem;
+}
+
+.gallery img {
+    position: absolute;
+    width: 100%
+}
