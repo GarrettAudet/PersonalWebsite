@@ -40,10 +40,10 @@
 }
 
 .logo-letter-hide {
+    transform-origin: 0 50%;
     transition: all .3s ease;
     opacity: 0;
 }
-
 
 /* Hover Effects */
 .header-left:hover .collapse-on-hover {
