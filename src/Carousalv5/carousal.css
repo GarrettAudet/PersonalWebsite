@@ -1,0 +1,39 @@
+.slider-container {
+    width: 40%;
+    margin: 10rem auto;
+    height: 570px;
+}
+
+.slider-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+}
+
+.slide {
+    transform: scale(0.2);
+    transition: transform 300ms;
+    opacity: .5;
+}
+
+.activeSlide {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.slick-dots li button:before {
+    color: white;
+}
+
+.slick-dots li.slick-active button:before {
+    color: white !important;
+}
+
+.slick-dots li button:before {
+    color: white !important;
+}
