@@ -31,6 +31,10 @@ body,
   background: linear-gradient(135deg, var(--background-color-main) 0%, var(--background-color-offset) 50%, var(--background-color-main) 100%);
 }
 
+.flex {
+  display: flex;
+}
+
 @font-face {
   font-family: 'Studio Feixen Sans';
   src: url('../public/fonts/StudioFeixenSans-Regular.ttf') format('truetype');

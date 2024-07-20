@@ -1,5 +1,6 @@
 /* Titlecard.css */
 .header-container {
+    padding: 0rem 2rem;
     margin-bottom: 6rem;
     margin-top: 3rem;
     margin-left: auto;
@@ -55,4 +56,20 @@ a {
     text-align: left;
     animation: blink-caret 0.75s step-end infinite;
     color: #FF7F50;
+}
+
+@keyframes appearIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.moveIn {
+    animation: moveIn 1s ease-out forwards;
 }

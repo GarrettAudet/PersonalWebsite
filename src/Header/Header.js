@@ -13,7 +13,7 @@ function Header () {
             </div>
             <div className="header-right">
                 <div>About</div>
-                <div>Projects</div>
+                <div>Experience</div>
                 <div>Writing</div>
                 <div>Contact</div>
             </div>
