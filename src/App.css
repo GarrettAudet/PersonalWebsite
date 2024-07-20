@@ -24,6 +24,7 @@ body,
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   font-family: 'Studio Feixen Sans', 'Nunito Sans', 'Montserrat', sans-serif;
 
   /* Background color */
