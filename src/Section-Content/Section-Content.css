@@ -1,0 +1,38 @@
+a {
+    display: flex;
+}
+
+a h3 {
+    margin-top: 0rem;
+    margin-bottom: .25rem;
+}
+
+a p {
+    font-size: 1rem;
+    color: white;
+    opacity: 0.5;
+}
+
+img {
+    color: white;
+}
+
+.logo {
+    width: 4rem;
+}
+
+.section-link .svg-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: white;
+    opacity: 0.5;
+}
+
+.section-link:hover {
+    color: #ff0000;
+}
+
+.experienceTitle,
+.experienceDescription {
+    font-size: 1rem;
+}

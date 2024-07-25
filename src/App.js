@@ -8,8 +8,8 @@ import Experience from './Experience/Experience'
 function App() {
   return (
     <div className="background">
-        <Header />
-        <Content />
+      <Header />
+      <Content />
     </div>
   );
 }

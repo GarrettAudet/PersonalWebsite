@@ -6,7 +6,7 @@ import Experience from '../Experience/Experience'
 
 function Content ({ number, text }) {
     return (
-        <div>
+        <div className="main-content">
             <Titlecard />
             <Experience />
         </div>
