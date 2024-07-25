@@ -1,12 +1,10 @@
 /* Root Variable Declaration */
 :root {
   --background-color-main: #121212;
-  /* --background-color-offset: #1C1C1C; */
   --background-color-offset: #1F1F1F;
   --background-color: #FFFFFF;
   --column-color: #F5F5F5;
   --header-border: #C31815;
-  --header-border: none;
   --text-color: #2A2A2A;
   --text-color: #FFFFFF;
 }
@@ -19,12 +17,24 @@ body,
   width: 100%;
 }
 
-.background {
-  width: 100%;
-  height: 100%;
+body {
   display: flex;
   flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.background {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 100%;
   font-family: 'Studio Feixen Sans', 'Nunito Sans', 'Montserrat', sans-serif;
 
   /* Background color */
