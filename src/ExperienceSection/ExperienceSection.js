@@ -9,7 +9,7 @@ function ExperienceSection({ number, text }) {
             <h3 className="flex sectionTitle"><span>{number}&nbsp;</span> {text}</h3>
             <SectionContent 
                 title="Computer Science and Business Graduate" 
-                description="Graduated as a first generation student with dual degrees in Business and Computing" 
+                description="Graduated as a first generation student with dual degrees in business and computing" 
                 LogoComponent={EducationLogo} 
             />
         </div>

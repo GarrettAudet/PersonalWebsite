@@ -21,6 +21,18 @@ img {
     width: 4rem;
 }
 
+.section-link {
+    padding: 20px;
+    margin-bottom: 2rem;
+    border-radius: .5rem;
+}
+
+.section-link:hover {
+    background-color: rgb(30, 30, 30, 0.5);
+    transition: transform 0.1s ease, background-color 0.1s ease;
+    will-change: transform, background-color;
+}
+
 .section-link .svg-logo {
     width: 1.5rem;
     height: 1.5rem;

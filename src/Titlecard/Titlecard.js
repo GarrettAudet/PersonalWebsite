@@ -6,8 +6,8 @@ const TitleCard = () => {
   return (
     <a href="about">
       <div className="header-container">
-        <h2>
-          <span className="inline-block appearIn">I'm a developer and business practitioner who believes that </span>
+        <h2> 
+          <span className="inline-block appearIn">I'm a developer and business professional who believes that </span>
           <span className="inline-block appearIn"><span className="text-decoration"> bridging diverse perspectives </span> unlocks <span className="text-animation">
             <TypeAnimation
               sequence={[

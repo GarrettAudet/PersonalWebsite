@@ -7,6 +7,7 @@
     margin-right: auto;
     position: relative;
     display: inline-block;
+    max-width: 50em;
 }
 
 .Titlecard {
