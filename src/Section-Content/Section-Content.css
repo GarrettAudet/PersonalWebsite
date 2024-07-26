@@ -25,26 +25,31 @@ img {
     padding: 20px;
     margin-bottom: 2rem;
     border-radius: .5rem;
+    background-color: transparent;
+    transition: background-color 0.1s ease, transform 0.1s ease, color 0.1s ease;
+    color: white;
+    max-width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .section-link:hover {
     background-color: rgb(30, 30, 30, 0.5);
-    transition: transform 0.1s ease, background-color 0.1s ease;
-    will-change: transform, background-color;
+    color: rgb(144, 245, 244);
 }
 
 .section-link .svg-logo {
     width: 1.5rem;
     height: 1.5rem;
-    fill: white;
     opacity: 0.5;
-}
-
-.section-link:hover {
-    color: #ff0000;
+    transition: opacity 0.1s ease, stroke 0.1s ease, fill 0.1s ease;
 }
 
 .experienceTitle,
 .experienceDescription {
-    font-size: 1rem;
+    font-size: 1.1rem;
+}
+
+.experienceDescription {
+    margin: 0;
 }

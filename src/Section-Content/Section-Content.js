@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Section-Content.css';
 
 function SectionContent({ title, description, LogoComponent }) {
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
-        <a href="https://www.google.com" className="section-link">
-            <div className="logo">
+        <a
+        href="https://www.google.com"
+        className="section-link"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        >
+            <div className={`logo ${isHovered ? 'hovered' : ''}`}>
                 <LogoComponent className="svg-logo" />
             </div>
             <div>
