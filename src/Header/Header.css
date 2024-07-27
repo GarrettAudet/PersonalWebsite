@@ -50,21 +50,10 @@
 }
 
 /* Hover Effects */
-.header-left:hover .collapse-on-hover {
-    opacity: 0;
-    max-width: 0em;
-}
-
-.header-left:hover .logo-letter-hide {
-    opacity: 1;
-}
-
-.delay-75 {
-    transition-delay: 75ms;
-}
-
-.delay-100 {
-    transition-delay: 100ms;
+.transformName {
+    text-align: center;
+    margin: 0;
+    line-height: 0;
 }
 
 /* Header Right */
