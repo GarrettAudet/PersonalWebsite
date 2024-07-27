@@ -35,7 +35,7 @@ function Header() {
             }, 30);
         };
 
-        return () => clearInterval(interval); // Clean up interval on component unmount
+        return () => clearInterval(interval); 
     }, []);
 
     return (

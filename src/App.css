@@ -91,8 +91,13 @@ body {
     align-items: center;
   }
 
-  .header-container h2 {
+  .header-container h2,
+  .text-animation,
+  .text-decoration {
     font-size: 1.125em !important;
+  }
+
+  .header-container h2 {
     padding-left: 2em;
   }
 
@@ -142,8 +147,13 @@ body {
     gap: 40px !important;
   }
 
-  .header-container h2 {
+  .header-container h2,
+  .text-animation,
+  .text-decoration {
     font-size: 1em !important;
+  }
+
+  .header-container h2 {
     padding-left: 1em;
   }
 }

@@ -25,6 +25,8 @@
 }
 
 .inline-block {
+    text-align: center;
+    justify-content: center;
     display: block;
 }
 
