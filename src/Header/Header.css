@@ -72,12 +72,15 @@
     gap: 60px;
 }
 
-.header-right div {
+.header-right div,
+.header-right a {
+    color: white;
     opacity: 0.5;
     transition: color 0.3s ease;
 }
 
-.header-right div:hover {
+.header-right div:hover,
+.header-right a:hover {
     opacity: 1 !important;
     color: white;
 }

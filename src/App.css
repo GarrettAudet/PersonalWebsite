@@ -74,3 +74,66 @@ body {
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 840px) {
+  .logo {
+    justify-content: center;
+    width: 48px;
+  }
+
+  .header-container {
+    margin: 3em 1.5em !important;
+  }
+
+  .header {
+    flex-direction: column !important;
+    gap: 1em;
+    align-items: center;
+  }
+
+  .header-container h2 {
+    font-size: 1.125em !important;
+    padding-left: 2em;
+  }
+
+  .experienceTitle,
+  .experienceDescription,
+  .sectionTitle {
+    font-size: 1rem !important;
+  }
+
+  .header-right {
+    gap: 40px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .logo {
+    width: 4rem;
+  }
+
+  .sectionContent {
+    padding-left: 1em !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .logo {
+    width: 4rem;
+  }
+
+  .experienceTitle,
+  .experienceDescription,
+  .sectionTitle {
+    font-size: 1rem !important;
+  }
+
+  .header-right {
+    gap: 40px !important;
+  }
+
+  .header-container h2 {
+    font-size: 1.125em !important;
+    padding-left: 1em;
+  }
+}

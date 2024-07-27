@@ -12,7 +12,7 @@ const TitleCard = () => {
             <TypeAnimation
               sequence={[
                 'economic potential.', 3000,
-                'professional opportunities.', 3000,
+                'career success.', 3000,
                 'individual growth.', 3000
               ]}
               wrapper="span"

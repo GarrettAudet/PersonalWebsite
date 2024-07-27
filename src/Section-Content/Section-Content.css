@@ -4,7 +4,7 @@ a {
 
 a h3 {
     margin-top: 0rem;
-    margin-bottom: .25rem;
+    margin-bottom: .5rem;
 }
 
 a p {
@@ -18,7 +18,9 @@ img {
 }
 
 .logo {
+    display: flex;
     width: 4rem;
+    justify-content: center;
 }
 
 .section-link {
@@ -28,14 +30,14 @@ img {
     background-color: transparent;
     transition: background-color 0.1s ease, transform 0.1s ease, color 0.1s ease;
     color: white;
-    max-width: 100%;
+    max-width: 50em;
     white-space: normal;
     word-wrap: break-word;
 }
 
 .section-link:hover {
-    background-color: rgb(30, 30, 30, 0.5);
-    color: rgb(144, 245, 244);
+    background-color: rgb(50, 50, 50, 0.5);
+    /* color: rgb(144, 245, 244); */
 }
 
 .section-link .svg-logo {
@@ -52,4 +54,8 @@ img {
 
 .experienceDescription {
     margin: 0;
+}
+
+.sectionContent {
+    padding-left: .75em;
 }

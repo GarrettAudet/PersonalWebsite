@@ -14,7 +14,7 @@ function SectionContent({ title, description, LogoComponent }) {
             <div className={`logo ${isHovered ? 'hovered' : ''}`}>
                 <LogoComponent className="svg-logo" />
             </div>
-            <div>
+            <div className="sectionContent">
                 <h3 className="experienceTitle">{title}</h3>
                 <p className="experienceDescription">{description}</p>
             </div>

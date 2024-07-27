@@ -14,7 +14,7 @@ function Header () {
             <div className="header-right">
                 <div>About</div>
                 <div>Experience</div>
-                <div>Writing</div>
+                <a href="https://garrett-audet.medium.com/">Writing </a>
                 <div>Contact</div>
             </div>
       </div>
