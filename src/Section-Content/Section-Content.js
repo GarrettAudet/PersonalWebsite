@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import './Section-Content.css';
 
-function SectionContent({ title, description, LogoComponent }) {
+function SectionContent({ title, description, LogoComponent, svgColor, Link }) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
         <a
-        href="https://www.google.com"
-        className="section-link"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+            href={Link}
+            className="section-link"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
-            <div className={`logo ${isHovered ? 'hovered' : ''}`}>
-                <LogoComponent className="svg-logo" />
+            <div className="logo">
+                <LogoComponent 
+                    className="svg-logo" 
+                    style={{ 
+                        color: isHovered ? svgColor : 'white', 
+                        opacity: isHovered ? 1 : 0.5
+                    }} 
+                />
             </div>
             <div className="sectionContent">
                 <h3 className="experienceTitle">{title}</h3>
@@ -23,3 +29,6 @@ function SectionContent({ title, description, LogoComponent }) {
 }
 
 export default SectionContent;
+
+
+

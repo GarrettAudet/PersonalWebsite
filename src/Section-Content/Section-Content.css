@@ -1,10 +1,15 @@
+/* Ensure the anchor tag uses flexbox */
 a {
     display: flex;
+    text-decoration: none;
+    color: inherit;
+    /* Inherit color from parent */
+    transition: color 0.1s ease;
 }
 
 a h3 {
     margin-top: 0rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 }
 
 a p {
@@ -21,30 +26,41 @@ img {
     display: flex;
     width: 4rem;
     justify-content: center;
+    margin-right: 1rem;
 }
 
 .section-link {
     padding: 20px;
-    margin-bottom: 2rem;
-    border-radius: .5rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
     background-color: transparent;
     transition: background-color 0.1s ease, transform 0.1s ease, color 0.1s ease;
-    color: white;
     max-width: 50em;
     white-space: normal;
     word-wrap: break-word;
+    color: inherit;
+    /* Inherit color from parent */
 }
 
 .section-link:hover {
-    background-color: rgb(50, 50, 50, 0.5);
-    /* color: rgb(144, 245, 244); */
+    background-color: rgba(50, 50, 50, 0.5);
+    color: rgb(144, 245, 244);
+    /* Change text color on hover */
 }
 
-.section-link .svg-logo {
+.svg-logo {
     width: 1.5rem;
     height: 1.5rem;
-    opacity: 0.5;
-    transition: opacity 0.1s ease, stroke 0.1s ease, fill 0.1s ease;
+    color: white;
+    transition: fill 0.1s ease, opacity 0.1s ease;
+    fill: none;
+}
+
+.svg-logo.hovered {
+    fill: rgb(144, 245, 244) !important;
+    /* Fill color on hover */
+    opacity: 1;
+    /* Full opacity on hover */
 }
 
 .experienceTitle,
@@ -57,5 +73,5 @@ img {
 }
 
 .sectionContent {
-    padding-left: .75em;
+    padding-left: 0.75em;
 }
