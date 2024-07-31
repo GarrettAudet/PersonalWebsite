@@ -1,9 +1,7 @@
-/* Ensure the anchor tag uses flexbox */
 a {
     display: flex;
     text-decoration: none;
     color: inherit;
-    /* Inherit color from parent */
     transition: color 0.1s ease;
 }
 
@@ -40,13 +38,11 @@ img {
     white-space: normal;
     word-wrap: break-word;
     color: inherit;
-    /* Inherit color from parent */
 }
 
 .section-link:hover {
     background-color: rgba(50, 50, 50, 0.5);
     color: rgb(144, 245, 244);
-    /* Change text color on hover */
 }
 
 .svg-logo {
@@ -59,9 +55,7 @@ img {
 
 .svg-logo.hovered {
     fill: rgb(144, 245, 244) !important;
-    /* Fill color on hover */
     opacity: 1;
-    /* Full opacity on hover */
 }
 
 .experienceTitle,
