@@ -8,7 +8,7 @@ a {
 }
 
 a h3 {
-    margin-top: 0rem;
+    margin-top: 0;
     margin-bottom: 0.5rem;
 }
 
@@ -24,7 +24,8 @@ img {
 
 .logo {
     display: flex;
-    width: 4rem;
+    width: 30px;
+    height: 70px;
     justify-content: center;
     margin-right: 1rem;
 }
@@ -74,4 +75,8 @@ img {
 
 .sectionContent {
     padding-left: 0.75em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
 }
