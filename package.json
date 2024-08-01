@@ -2,7 +2,7 @@
   "name": "personalwebsite",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://GarrettAudet.github.io/PersonalWebsite",
+  "homepage": "https://www.garrettaudet.com",
   "dependencies": {
     "gh-pages": "^3.1.0",
     "@testing-library/jest-dom": "^5.17.0",
