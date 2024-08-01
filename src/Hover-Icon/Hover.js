@@ -8,13 +8,13 @@ function Hover() {
     return (
         <div className="socialContacts">
             <a href = "https://www.google.com/" title = "Github" className = "link">
-                <GithubLogo className = "bi bi-github" />
+                <GithubLogo className = "bi bi-github bi-icon" />
             </a>
             <a href = "https://www.google.com/" title = "LinkedIn" className = "link">
-                <LinkedinLogo className = "bi bi-linkedin"/>
+                <LinkedinLogo className = "bi bi-linkedin bi-icon"/>
             </a>
             <a href = "https://www.google.com/" title = "Medium" className = "link">
-                <MediumLogo className = "bi bi-medium"/>
+                <MediumLogo className = "bi bi-medium bi-icon"/>
             </a>
         </div>
     );

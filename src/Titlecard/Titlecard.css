@@ -71,7 +71,7 @@ a {
     text-align: left;
     /* Align text left */
     animation: blink-caret 0.75s step-end infinite;
-    color: #FF7F50;
+    color: var(--text-decoration);
 }
 
 @keyframes appearIn {
