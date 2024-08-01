@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Header.css';
 
-function Header() {
+function Header({ scrollToSection, experienceRef, contactRef }) {
     useEffect(() => {
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let interval = null;
@@ -44,10 +44,10 @@ function Header() {
                 <span className="first-name" data-value="garrettaudet.com">garrett audet</span>
             </div>
             <div className="header-right">
-                <div>About</div>
-                <div>Experience</div>
+                <a href="https://garrett-audet.medium.com/">About</a>
+                <a href="#experience" onClick={() => scrollToSection(experienceRef)}>Experience</a>
                 <a href="https://garrett-audet.medium.com/">Writing</a>
-                <div>Contact</div>
+                <a href="#contact" onClick={() => scrollToSection(contactRef)}>Contact</a>
             </div>
         </div>
     );

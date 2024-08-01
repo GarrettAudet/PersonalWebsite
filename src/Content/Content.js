@@ -4,11 +4,11 @@ import './Content.css'
 import Titlecard from '../Titlecard/Titlecard'
 import Experience from '../Experience/Experience'
 
-function Content ({ number, text }) {
+function Content ({ experienceRef, contactRef }) {
     return (
         <div className="main-content">
             <Titlecard />
-            <Experience />
+            <Experience experienceRef = {experienceRef} contactRef = {contactRef} />
         </div>
     );
 }
