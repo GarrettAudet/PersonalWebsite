@@ -78,6 +78,12 @@ body {
   }
 }
 
+@media (min-width: 840px) {
+  body {
+    cursor: none !important;
+  }
+}
+
 @media (max-width: 840px) {
   .logo {
     justify-content: center;
@@ -116,6 +122,18 @@ body {
 }
 
 @media (max-width: 700px) {
+  .cursor {
+    display: none;
+  }
+
+  body {
+    cursor: auto !important;
+  }
+
+  a {
+    cursor: pointer !important;
+  }
+
   .logo {
     width: 4rem;
   }
