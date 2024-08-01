@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/PersonalWebsite/static/css/main.3f12d691.css",
-    "main.js": "/PersonalWebsite/static/js/main.16e9c486.js",
+    "main.js": "/PersonalWebsite/static/js/main.499ec55d.js",
     "static/js/453.55c3503c.chunk.js": "/PersonalWebsite/static/js/453.55c3503c.chunk.js",
     "static/media/StudioFeixenSans-Semibold.ttf": "/PersonalWebsite/static/media/StudioFeixenSans-Semibold.f79e157c90ec0b949429.ttf",
     "static/media/StudioFeixenSans-Regular.ttf": "/PersonalWebsite/static/media/StudioFeixenSans-Regular.28b38b7ba177a3792b45.ttf",
@@ -17,11 +17,11 @@
     "static/media/scholar.svg": "/PersonalWebsite/static/media/scholar.f6b39d892f6b2ec5fc1612ae9f3dd4ae.svg",
     "static/media/underline.svg": "/PersonalWebsite/static/media/underline.f2a263c8ff384281867b.svg",
     "main.3f12d691.css.map": "/PersonalWebsite/static/css/main.3f12d691.css.map",
-    "main.16e9c486.js.map": "/PersonalWebsite/static/js/main.16e9c486.js.map",
+    "main.499ec55d.js.map": "/PersonalWebsite/static/js/main.499ec55d.js.map",
     "453.55c3503c.chunk.js.map": "/PersonalWebsite/static/js/453.55c3503c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3f12d691.css",
-    "static/js/main.16e9c486.js"
+    "static/js/main.499ec55d.js"
   ]
 }
