@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.1bce2891.css",
-    "main.js": "/static/js/main.044aa77d.js",
-    "static/js/453.55c3503c.chunk.js": "/static/js/453.55c3503c.chunk.js",
-    "static/media/StudioFeixenSans-Semibold.ttf": "/static/media/StudioFeixenSans-Semibold.f79e157c90ec0b949429.ttf",
-    "static/media/StudioFeixenSans-Regular.ttf": "/static/media/StudioFeixenSans-Regular.28b38b7ba177a3792b45.ttf",
-    "static/media/StudioFeixenSans-Bold.ttf": "/static/media/StudioFeixenSans-Bold.0c86f3a315e031614b6f.ttf",
-    "static/media/wto.svg": "/static/media/wto.1bbdf3d5bc216c65ba6771c5c5cfaac9.svg",
-    "static/media/military.svg": "/static/media/military.c47ea668b0d28439c064414e76979dab.svg",
-    "static/media/github.svg": "/static/media/github.0fce304bd71bcffa5e2ffb3267b6aa6f.svg",
-    "static/media/education.svg": "/static/media/education.34517578cf13a8f5d97d4333fef2e7ac.svg",
-    "static/media/linkedin.svg": "/static/media/linkedin.b23a13b66e0176649634f4d2eea4edac.svg",
-    "static/media/medium.svg": "/static/media/medium.2fd7007113b8989e467dca983e71f3a8.svg",
-    "index.html": "/index.html",
-    "static/media/research.svg": "/static/media/research.d3a1774e710cfebb1e7afaec21208780.svg",
-    "static/media/scholar.svg": "/static/media/scholar.f6b39d892f6b2ec5fc1612ae9f3dd4ae.svg",
-    "static/media/underline.svg": "/static/media/underline.f2a263c8ff384281867b.svg",
-    "main.1bce2891.css.map": "/static/css/main.1bce2891.css.map",
-    "main.044aa77d.js.map": "/static/js/main.044aa77d.js.map",
-    "453.55c3503c.chunk.js.map": "/static/js/453.55c3503c.chunk.js.map"
+    "main.css": "/PersonalWebsite/static/css/main.f47fe7f7.css",
+    "main.js": "/PersonalWebsite/static/js/main.499ec55d.js",
+    "static/js/453.55c3503c.chunk.js": "/PersonalWebsite/static/js/453.55c3503c.chunk.js",
+    "static/media/StudioFeixenSans-Semibold.ttf": "/PersonalWebsite/static/media/StudioFeixenSans-Semibold.f79e157c90ec0b949429.ttf",
+    "static/media/StudioFeixenSans-Regular.ttf": "/PersonalWebsite/static/media/StudioFeixenSans-Regular.28b38b7ba177a3792b45.ttf",
+    "static/media/StudioFeixenSans-Bold.ttf": "/PersonalWebsite/static/media/StudioFeixenSans-Bold.0c86f3a315e031614b6f.ttf",
+    "static/media/wto.svg": "/PersonalWebsite/static/media/wto.1bbdf3d5bc216c65ba6771c5c5cfaac9.svg",
+    "static/media/military.svg": "/PersonalWebsite/static/media/military.c47ea668b0d28439c064414e76979dab.svg",
+    "static/media/github.svg": "/PersonalWebsite/static/media/github.0fce304bd71bcffa5e2ffb3267b6aa6f.svg",
+    "static/media/education.svg": "/PersonalWebsite/static/media/education.34517578cf13a8f5d97d4333fef2e7ac.svg",
+    "static/media/linkedin.svg": "/PersonalWebsite/static/media/linkedin.b23a13b66e0176649634f4d2eea4edac.svg",
+    "index.html": "/PersonalWebsite/index.html",
+    "static/media/medium.svg": "/PersonalWebsite/static/media/medium.2fd7007113b8989e467dca983e71f3a8.svg",
+    "static/media/research.svg": "/PersonalWebsite/static/media/research.d3a1774e710cfebb1e7afaec21208780.svg",
+    "static/media/scholar.svg": "/PersonalWebsite/static/media/scholar.f6b39d892f6b2ec5fc1612ae9f3dd4ae.svg",
+    "static/media/underline.svg": "/PersonalWebsite/static/media/underline.f2a263c8ff384281867b.svg",
+    "main.f47fe7f7.css.map": "/PersonalWebsite/static/css/main.f47fe7f7.css.map",
+    "main.499ec55d.js.map": "/PersonalWebsite/static/js/main.499ec55d.js.map",
+    "453.55c3503c.chunk.js.map": "/PersonalWebsite/static/js/453.55c3503c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1bce2891.css",
-    "static/js/main.044aa77d.js"
+    "static/css/main.f47fe7f7.css",
+    "static/js/main.499ec55d.js"
   ]
 }
