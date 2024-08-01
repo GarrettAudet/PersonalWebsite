@@ -1,3 +1,4 @@
+/* Handles Animation of the Experience Container Appearing */
 .experience-container {
     display: flex;
     flex-direction: column;
