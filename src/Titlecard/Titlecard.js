@@ -4,7 +4,7 @@ import './Titlecard.css';
 
 const TitleCard = () => {
   return (
-    <a href="about">
+    <a href="https://www.linkedin.com/in/garrettaudet">
       <div className="header-container">
         <h2> 
           <span className="inline-block appearIn">I'm a developer and business professional who believes that </span>
