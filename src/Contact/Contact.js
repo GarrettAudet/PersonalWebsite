@@ -4,10 +4,9 @@ import './Contact.css';
 function ContactForm() {
     return (
         <div className="ContactFormContainer">
-            <div className="contact">Write me an e-mail at: </div>
-            <h2 className="email">garrett.audet@gmail.com</h2>
-            <div className="separator">OR</div>
-            <div>Reach me through social media: </div>
+            <div className="SectionHeaderLine"></div>
+            <h1 className="SectionHeaderContact">Contact</h1>
+            <div className="SectionHeaderLine"></div>
         </div>
     );
 }

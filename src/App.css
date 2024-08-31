@@ -3,6 +3,7 @@
   --background-color-main: #121212;
   --background-color-offset: #1F1F1F;
   --background-color: #FFFFFF;
+  --background-color-opacity: rgba(255, 255, 255, 0.5);
   --column-color: #F5F5F5;
   --header-border: #C31815;
   --text-color: #2A2A2A;
