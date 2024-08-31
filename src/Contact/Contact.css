@@ -1,44 +1,39 @@
-.ContactFormContainer {
+.contact-form-header {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
 }
 
-
-
-
-
-
-.ContactFormContainer h2 {
-    margin: 0px;
-}
-
-.ContactFormContainer form {
+.contact-form-name {
     display: flex;
-    align-items: center;
-    flex-direction: column;
     gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.ContactFormContainer div {
-    opacity: 0.5;
+.contact-form-first-name,
+.contact-form-last-name {
+    flex: 1;
 }
 
-.ContactFormContainer .email {
-    opacity: 1;
+input,
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
 }
 
-.separator {
-    margin: 2rem;
-}
-
-.SectionHeaderLine {
-    flex: 1 1;
+.contact-section-line {
+    flex-grow: 1;
     height: 1px;
     background-color: var(--background-color-opacity);
 }
 
-.SectionHeaderContact {
-    margin: 0px 40px;
+.contact-section-title {
+    margin: 0 1rem;
     color: var(--background-color);
+    white-space: nowrap;
 }
