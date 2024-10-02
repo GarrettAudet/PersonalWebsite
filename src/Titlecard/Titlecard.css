@@ -26,6 +26,10 @@
     display: block;
 }
 
+.animation-container {
+    line-height: 1.5em;
+}
+
 a {
     text-decoration: none;
 }
@@ -42,7 +46,6 @@ a {
 .text-decoration {
     display: inline-block;
     position: relative;
-    padding-bottom: 3px;
 }
 
 .text-decoration::after {
@@ -61,11 +64,13 @@ a {
 .text-animation {
     display: inline-block;
     width: 10.24em;
-    /* Auto width to fit content */
+    /* Auto width to fit the content properly */
+    height: auto;
+    /* Let the height adjust naturally based on content */
     overflow: hidden;
     vertical-align: bottom;
     text-align: left;
-    /* Align text left */
+    /* Align text to the left if needed */
     animation: blink-caret 0.75s step-end infinite;
     color: var(--text-decoration);
 }

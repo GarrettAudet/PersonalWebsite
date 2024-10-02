@@ -47,8 +47,9 @@ textarea {
 
 /* Container for the submit button */
 .submit-button-container {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     justify-content: space-between;
+    align-items: center;
 }
 
 /* Styles for social contact icons section */
@@ -74,17 +75,19 @@ textarea {
     transition: color 0.5s ease-in-out;
 }
 
-/* Fallback variable property definition for --fill */
-@property --fill {
-    syntax: "<percentage>";
-    inherits: true;
-    initial-value: 0%;
+/* Icon size for social media buttons */
+.bi-icon,
+button {
+    height: 2rem;
 }
 
-/* Icon size for social media buttons */
-.bi-icon {
-    height: 2rem;
-    width: 2rem;
+/* Styling for Button */
+button {
+    width: 4rem;
+    border: 0px;
+    border-radius: 10%;
+    padding: 0px;
+    background-color: var(--background-color);
 }
 
 /* Border styles for social media buttons */
