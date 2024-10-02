@@ -13,13 +13,6 @@
     text-align: center;
 }
 
-.Titlecard {
-    max-width: 36rem;
-    color: white;
-    text-align: center;
-    /* Center text */
-}
-
 .inline-block {
     text-align: center;
     justify-content: center;
