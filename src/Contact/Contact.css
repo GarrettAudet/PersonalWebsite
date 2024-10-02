@@ -26,6 +26,10 @@ textarea {
     box-sizing: border-box;
 }
 
+.contact-form-name {
+    margin-bottom: 1rem;
+}
+
 .contact-section-line {
     flex-grow: 1;
     height: 1px;
