@@ -41,3 +41,8 @@ textarea {
     color: var(--background-color);
     white-space: nowrap;
 }
+
+.submit-button-container {
+    margin-top: 1rem;
+    justify-content: space-between;
+}
