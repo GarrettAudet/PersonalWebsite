@@ -1,9 +1,7 @@
+/* Container for header */
 .header-container {
-    padding: 0rem 2rem;
-    margin-bottom: 6rem;
-    margin-top: 6rem;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 0 2rem;
+    margin: 6rem auto;
     position: relative;
     display: flex;
     justify-content: center;
@@ -13,34 +11,40 @@
     text-align: center;
 }
 
+/* Inline block style */
 .inline-block {
+    display: block;
     text-align: center;
     justify-content: center;
-    display: block;
 }
 
+/* Container for animations */
 .animation-container {
     line-height: 1.5em;
+    /* Ensures consistent line height across animations */
 }
 
+/* Link style */
 a {
     text-decoration: none;
+    /* Remove underline for links */
 }
 
+/* Header style */
 .header-container h2 {
     color: white;
-    text-decoration: none;
     text-align: center;
-    /* Center text */
     margin: 0;
-    /* Reset margin */
+    /* Reset default margin */
 }
 
+/* Text decoration with underline */
 .text-decoration {
     display: inline-block;
     position: relative;
 }
 
+/* Underline effect after text */
 .text-decoration::after {
     content: '';
     width: 100%;
@@ -54,20 +58,20 @@ a {
     left: 0;
 }
 
+/* Animated text style */
 .text-animation {
     display: inline-block;
     width: 10.24em;
-    /* Auto width to fit the content properly */
     height: auto;
-    /* Let the height adjust naturally based on content */
     overflow: hidden;
     vertical-align: bottom;
     text-align: left;
-    /* Align text to the left if needed */
+    /* Align text to the left */
     animation: blink-caret 0.75s step-end infinite;
     color: var(--text-decoration);
 }
 
+/* Keyframes for appearing animation */
 @keyframes appearIn {
     0% {
         opacity: 0;
@@ -80,6 +84,7 @@ a {
     }
 }
 
+/* Keyframes for moving in animation */
 .moveIn {
     animation: moveIn 1s ease-out forwards;
 }
