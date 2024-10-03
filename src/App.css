@@ -91,6 +91,11 @@ body {
   body {
     cursor: none !important;
   }
+
+  /* Font-Size of Hero Message */
+  .hero-message-container span {
+    font-size: 1.5rem;
+  }
 }
 
 /* Medium Screens (between 700px and 840px) */
@@ -110,10 +115,9 @@ body {
     align-items: center;
   }
 
-  .header-container h2,
-  .text-animation,
-  .text-decoration {
-    font-size: 1.125em !important;
+  /* Font-Size of Hero Message */
+  .hero-message-container span {
+    font-size: 1.125rem !important;
   }
 
   .header-container h2 {
@@ -152,7 +156,7 @@ body {
   .experienceTitle,
   .experienceDescription,
   .sectionTitle {
-    font-size: 0.75 !important;
+    font-size: 0.75rem !important;
   }
 
   .sectionContent {
@@ -173,17 +177,16 @@ body {
   .experienceTitle,
   .experienceDescription,
   .sectionTitle {
-    font-size: 0.75 !important;
+    font-size: 0.75rem !important;
   }
 
   .header-right {
     gap: 40px !important;
   }
 
-  .header-container h2,
-  .text-animation,
-  .text-decoration {
-    font-size: 1em !important;
+  /* Font-Size of Hero Message */
+  .hero-message-container span {
+    font-size: 1rem !important;
   }
 
   .header-container h2 {
