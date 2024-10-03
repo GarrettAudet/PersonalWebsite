@@ -1,14 +1,11 @@
 /* Root Variable Declaration */
 :root {
+  --background-color: #FFFFFF;
   --background-color-main: #121212;
   --background-color-offset: #1F1F1F;
-  --background-color-light: #FFFFFF;
   --background-color-opacity: rgba(255, 255, 255, 0.5);
-  --column-color: #F5F5F5;
-  --header-border: #C31815;
-  --text-color-dark: #2A2A2A;
-  --text-color-light: #FFFFFF;
-  --text-decoration-color: #FF7F50;
+  --text-color: #FFFFFF;
+  --text-decoration: #FF7F50;
 }
 
 /* General Styles */
@@ -155,7 +152,7 @@ body {
   .experienceTitle,
   .experienceDescription,
   .sectionTitle {
-    font-size: 0.75rem !important;
+    font-size: 0.75 !important;
   }
 
   .sectionContent {
@@ -176,7 +173,7 @@ body {
   .experienceTitle,
   .experienceDescription,
   .sectionTitle {
-    font-size: 0.75rem !important;
+    font-size: 0.75 !important;
   }
 
   .header-right {
