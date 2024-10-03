@@ -2,15 +2,16 @@
 :root {
   --background-color-main: #121212;
   --background-color-offset: #1F1F1F;
-  --background-color: #FFFFFF;
+  --background-color-light: #FFFFFF;
   --background-color-opacity: rgba(255, 255, 255, 0.5);
   --column-color: #F5F5F5;
   --header-border: #C31815;
-  --text-color: #2A2A2A;
-  --text-color: #FFFFFF;
-  --text-decoration: #FF7F50;
+  --text-color-dark: #2A2A2A;
+  --text-color-light: #FFFFFF;
+  --text-decoration-color: #FF7F50;
 }
 
+/* General Styles */
 html,
 body,
 #root {
@@ -32,6 +33,7 @@ body {
   flex-direction: column;
 }
 
+/* Background */
 .background {
   display: flex;
   flex: 1;
@@ -41,13 +43,18 @@ body {
   font-family: 'Studio Feixen Sans', 'Nunito Sans', 'Montserrat', sans-serif;
 
   /* Background color */
-  background: linear-gradient(135deg, var(--background-color-main) 0%, var(--background-color-offset) 50%, var(--background-color-main) 100%);
+  background: linear-gradient(135deg,
+      var(--background-color-main) 0%,
+      var(--background-color-offset) 50%,
+      var(--background-color-main) 100%);
 }
 
+/* Flex Utility Class */
 .flex {
   display: flex;
 }
 
+/* Font Face Declarations */
 @font-face {
   font-family: 'Studio Feixen Sans';
   src: url('../public/fonts/StudioFeixenSans-Regular.ttf') format('truetype');
@@ -69,6 +76,7 @@ body {
   font-style: normal;
 }
 
+/* Keyframes */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -79,12 +87,16 @@ body {
   }
 }
 
+/* Media Queries */
+
+/* Large Screens (840px and up) */
 @media (min-width: 840px) {
   body {
     cursor: none !important;
   }
 }
 
+/* Medium Screens (between 700px and 840px) */
 @media (max-width: 840px) {
   .logo {
     justify-content: center;
@@ -122,6 +134,7 @@ body {
   }
 }
 
+/* Small Screens (between 500px and 700px) */
 @media (max-width: 700px) {
   .cursor {
     display: none;
@@ -142,7 +155,7 @@ body {
   .experienceTitle,
   .experienceDescription,
   .sectionTitle {
-    font-size: 0.75 !important;
+    font-size: 0.75rem !important;
   }
 
   .sectionContent {
@@ -150,6 +163,7 @@ body {
   }
 }
 
+/* Extra Small Screens (below 500px) */
 @media (max-width: 500px) {
   .header-container {
     min-width: 16em !important;
@@ -162,7 +176,7 @@ body {
   .experienceTitle,
   .experienceDescription,
   .sectionTitle {
-    font-size: 0.75 !important;
+    font-size: 0.75rem !important;
   }
 
   .header-right {
