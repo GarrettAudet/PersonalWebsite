@@ -124,12 +124,6 @@ body {
     padding-left: 2em;
   }
 
-  .experienceTitle,
-  .experienceDescription,
-  .sectionTitle {
-    font-size: 1rem !important;
-  }
-
   .header-right {
     gap: 40px !important;
   }
@@ -156,7 +150,7 @@ body {
   .experienceTitle,
   .experienceDescription,
   .sectionTitle {
-    font-size: 0.75rem !important;
+    font-size: 1rem !important;
   }
 
   .sectionContent {
