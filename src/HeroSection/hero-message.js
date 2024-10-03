@@ -1,8 +1,8 @@
 import React from 'react';
 import { TypeAnimation } from 'react-type-animation';
-import './Titlecard.css';
+import './hero-message.css';
 
-const TitleCard = () => {
+const HeroMessage = () => {
   return (
     <a href="https://www.linkedin.com/in/garrettaudet">
       <div className="header-container">
@@ -27,4 +27,4 @@ const TitleCard = () => {
   );
 };
 
-export default TitleCard;
+export default HeroMessage;
