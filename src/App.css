@@ -46,6 +46,11 @@ body {
       var(--background-color-main) 100%);
 }
 
+/* Cursor Container */
+.contact-form-container {
+  cursor: none !important;
+}
+
 /* Flex Utility Class */
 .flex {
   display: flex;
