@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'; // Ensure both useState and useEffect are imported
-import './landing-page.css'; // Import the CSS file
+import React, { useEffect, useState } from 'react'; 
+import './landing-page.css'; 
+import Header from './header.js'
 
 const LandingPage = () => {
   // Define the state for particle and line colors
@@ -130,7 +131,10 @@ const LandingPage = () => {
     }
   }, [particleColor, lineColor]); // Ensure the effect re-runs when colors change
 
-  return <div id="particles-js" className="scroll-section"></div>;
+  return (
+  <div id="particles-js" className="scroll-section">
+    <Header />
+  </div>);
 };
 
 export default LandingPage;

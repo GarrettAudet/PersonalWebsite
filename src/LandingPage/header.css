@@ -1,0 +1,75 @@
+:root {
+    --hover-color: black;
+}
+
+/* All Elements of the Header */
+.header {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.5rem 3rem;
+    justify-content: space-between;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.header-container {
+    max-width: 50rem;
+}
+
+/* Header Flex Component */
+.header-left,
+.header-right {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Left Header */
+.header-left {
+    display: flex;
+}
+
+.first-name,
+.last-name {
+    display: inline-block;
+}
+
+.collapse-on-hover {
+    display: inline-block;
+    white-space: pre;
+    overflow: hidden;
+    max-width: 1em;
+    transition: all .3s ease;
+}
+
+.logo-letter-hide {
+    transform-origin: 0 50%;
+    transition: all .3s ease;
+    opacity: 0;
+}
+
+/* Hover Effects */
+.transformName {
+    text-align: center;
+    margin: 0;
+    line-height: 0;
+}
+
+/* Header Right */
+.header-right {
+    gap: 60px;
+}
+
+.header-right div,
+.header-right a {
+    color: white;
+    opacity: 0.5;
+    transition: color 0.3s ease;
+}
+
+.header-right div:hover,
+.header-right a:hover {
+    opacity: 1 !important;
+    color: white;
+}
