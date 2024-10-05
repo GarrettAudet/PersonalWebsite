@@ -67,5 +67,5 @@
 
 .header-right div:hover,
 .header-right a:hover {
-    color: var(--text-color-dark);
+    color: var(--text-color);
 }
