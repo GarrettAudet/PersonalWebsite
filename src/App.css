@@ -4,6 +4,9 @@
   --background-color-main: #121212;
   --background-color-offset: #1F1F1F;
   --background-color-opacity: rgba(255, 255, 255, 0.5);
+  --particle-background: #FFFFFF;
+  --particle-dot: #121212;
+  --particle-line: #121212;
   --text-color: #FFFFFF;
   --text-decoration: #FF7F50;
 }
