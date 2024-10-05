@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './landing-page.css'; 
 import Header from './header.js'
 
-const LandingPage = () => {
+const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
   // Define the state for particle and line colors
   const [particleColor, setParticleColor] = useState('#ffffff');
   const [lineColor, setLineColor] = useState('#ffffff');
@@ -134,6 +134,14 @@ const LandingPage = () => {
   return (
   <div id="particles-js" className="scroll-section">
     <Header />
+    <div className = "landing-page-header">
+      <h1>Garrett Audet</h1>
+      <div className = "flex">
+        <p>STRATEGY</p>
+        <p>&</p>
+        <p>Full-Stack Analytics</p>
+      </div>
+    </div>
   </div>);
 };
 

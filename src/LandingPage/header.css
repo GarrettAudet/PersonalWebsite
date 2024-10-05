@@ -1,6 +1,8 @@
 /* All Elements of the Header */
 .header {
+    position: absolute;
     display: flex;
+    z-index: 10;
     flex-direction: row;
     box-sizing: border-box;
     width: 100%;

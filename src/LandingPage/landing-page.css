@@ -1,7 +1,9 @@
 .scroll-section {
+    position: relative;
     width: 100vw;
     height: 100vh;
-    background: white;
+    background: var(--particle-background);
+    overflow: hidden;
 }
 
 .particlesStyle {
@@ -12,4 +14,15 @@
     left: 0;
     z-index: -1;
     background: '#000';
+}
+
+.landing-page-header {
+    position: absolute;
+    /* Absolute positioning relative to the parent */
+    z-index: 10;
+    top: 50%;
+    /* Vertically center the header */
+    /* Horizontally center the header */
+    transform: translate(-50%, -50%);
+    /* Adjust to perfectly center */
 }

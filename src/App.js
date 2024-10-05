@@ -15,8 +15,7 @@ function App() {
 
   return (
     <div className="scrolling-container">
-      <LandingPage/>
-      <Header scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef}/>
+      <LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef}/>
       <Content experienceRef={experienceRef} contactRef={contactRef}/>
       <Cursor />
     </div>
