@@ -1,7 +1,3 @@
-:root {
-    --hover-color: black;
-}
-
 /* All Elements of the Header */
 .header {
     display: flex;
@@ -10,7 +6,7 @@
     width: 100%;
     padding: 1.5rem 3rem;
     justify-content: space-between;
-    color: var(--text-color);
+    color: var(--text-color-dark);
     font-weight: 500;
 }
 
@@ -63,13 +59,11 @@
 
 .header-right div,
 .header-right a {
-    color: white;
-    opacity: 0.5;
+    color: var(--text-color-dark);
     transition: color 0.3s ease;
 }
 
 .header-right div:hover,
 .header-right a:hover {
-    opacity: 1 !important;
-    color: white;
+    color: var(--text-color-dark);
 }
