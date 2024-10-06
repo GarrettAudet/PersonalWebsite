@@ -2,11 +2,13 @@ import React from 'react';
 import './personal-link.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function PersonalLink({ backgroundColor, divIcon }) {
+function PersonalLink({ backgroundColor, divIcon, link }) {
     return (
-        <div className = "personal-link" style = {{ '--bg-color': backgroundColor }}>
-            <FontAwesomeIcon icon={divIcon} />
-        </div>
+        <a href = {link} target = "_blank" rel = "noopener noreferrer">
+            <div className = "personal-link" style = {{ '--bg-color': backgroundColor }}>
+                <FontAwesomeIcon icon={divIcon} size = "16px" />
+            </div>
+        </a>
     );
 }
 
