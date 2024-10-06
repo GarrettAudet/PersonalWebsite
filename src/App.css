@@ -55,9 +55,13 @@ body {
   cursor: none !important;
 }
 
-/* Flex Utility Class */
+/* Utility Classes */
 .flex {
   display: flex;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 /* Font Face Declarations */
