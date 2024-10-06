@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './landing-page.css'; 
 import Header from './header.js'
 import PersonalLink from './personal-link.js';
+
 /* Import Images */
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
   // Define the state for particle and line colors
@@ -145,7 +148,11 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
           <p>FULL-STACK ANALYTICS</p>
         </div>
       </div>
-      <PersonalLink backgroundColor = "rgb(244, 199, 144)" divIcon = {faGithub} />
+      <div className = "landing-page-link-container">
+        <PersonalLink backgroundColor = "rgb(244, 199, 144)" divIcon = {faGithub} />
+        <PersonalLink backgroundColor = "rgb(244, 199, 144)" divIcon = {faLinkedin} />
+        <PersonalLink backgroundColor = "rgb(244, 199, 144)" divIcon = {faEnvelope} />
+      </div>
   </div>);
 };
 

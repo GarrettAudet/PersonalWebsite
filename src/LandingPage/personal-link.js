@@ -1,9 +1,11 @@
 import React from 'react';
-import { ReactComponent as MilitaryLogo } from '../Img/military.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function PersonalLink({ backgroundColor, divIcon }) {
     return (
-        <div></div>
+        <div>
+            <FontAwesomeIcon icon={divIcon} />
+        </div>
     );
 }
 
