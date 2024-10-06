@@ -1,4 +1,5 @@
 import React from 'react';
+import './personal-link.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function PersonalLink({ backgroundColor, divIcon }) {

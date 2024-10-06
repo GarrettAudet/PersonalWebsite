@@ -21,6 +21,7 @@
     background: '#000';
 }
 
+/* Styling for The Landing Page Title */
 .landing-page-header {
     display: flex;
     flex-direction: column;
@@ -32,4 +33,14 @@
 
 .landing-page-header h1 {
     margin: 0px;
+}
+
+/* Personal Links */
+.landing-page-link-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    gap: 0.5rem;
+    bottom: 2rem;
+    right: 3rem;
 }
