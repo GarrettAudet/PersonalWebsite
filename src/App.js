@@ -14,7 +14,7 @@ function App() {
   };
 
   return (
-    <div className="scrolling-container">
+    <div className="scrolling-container particles-js">
       <LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef}/>
       <Content experienceRef={experienceRef} contactRef={contactRef}/>
       <Cursor />

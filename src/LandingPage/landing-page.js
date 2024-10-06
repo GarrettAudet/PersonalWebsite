@@ -132,16 +132,16 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
   }, [particleColor, lineColor]); // Ensure the effect re-runs when colors change
 
   return (
-  <div id="particles-js" className="scroll-section">
+  <div id="particles-js" className="scroll-section flex">
     <Header />
-    <div className = "landing-page-header">
-      <h1>Garrett Audet</h1>
-      <div className = "flex">
-        <p>STRATEGY</p>
-        <p>&</p>
-        <p>Full-Stack Analytics</p>
+      <div className = "landing-page-header">
+        <h1>GARRETT AUDET</h1>
+        <div className = "landing-page-title flex">
+          <p>STRATEGY</p>
+          <p>&</p>
+          <p>Full-Stack Analytics</p>
+        </div>
       </div>
-    </div>
   </div>);
 };
 
