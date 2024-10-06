@@ -137,9 +137,9 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
       <div className = "landing-page-header">
         <h1>GARRETT AUDET</h1>
         <div className = "landing-page-title flex">
-          <p>STRATEGY</p>
-          <p>&</p>
-          <p>Full-Stack Analytics</p>
+          <p>STRATEGY&nbsp;</p>
+          <p>&&nbsp;</p>
+          <p>FULL-STACK ANALYTICS</p>
         </div>
       </div>
   </div>);

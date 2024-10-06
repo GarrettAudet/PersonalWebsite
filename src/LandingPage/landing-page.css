@@ -21,17 +21,15 @@
     background: '#000';
 }
 
-.landing-page-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
 .landing-page-header {
     display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding-left: 3rem;
     position: absolute;
     z-index: 1;
+}
+
+.landing-page-header h1 {
+    margin: 0px;
 }
