@@ -6,6 +6,6 @@
 }
 
 .personal-link:hover svg {
-    transform: scale(1.2);
+    transform: scale(1.5);
     transition: all .3s ease;
 }
