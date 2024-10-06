@@ -6,7 +6,7 @@ function PersonalLink({ backgroundColor, divIcon, link }) {
     return (
         <a href = {link} target = "_blank" rel = "noopener noreferrer">
             <div className = "personal-link" style = {{ '--bg-color': backgroundColor }}>
-                <FontAwesomeIcon icon={divIcon} size = "16px" />
+                <FontAwesomeIcon icon={divIcon} size = "lg" />
             </div>
         </a>
     );
