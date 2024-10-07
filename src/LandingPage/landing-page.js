@@ -4,11 +4,11 @@ import Header from './header.js'
 import PersonalLink from './personal-link.js';
 
 /* Import Images */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faChevronDown} from '@fortawesome/free-solid-svg-icons'
+import chevronDown from '../Img/chevronDown.svg';
+
 
 const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
   // Define the state for particle and line colors
@@ -155,12 +155,10 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
         <PersonalLink backgroundColor = "rgb(10, 102, 194, 0.1)" divIcon = {faLinkedin} link = {"https://www.linkedin.com/in/garrettaudet/"}/>
         <PersonalLink backgroundColor = "rgb(234, 67, 53, 0.1)" divIcon = {faEnvelope} link = {"mailto:garrett.audet@gmail.com"}/>
       </div>
-      <div>
+      <div className = "scroll-container">
         <p>Scroll</p>
-        <div className = "chevron-container">
-          <FontAwesomeIcon icon={faChevronDown} size = "2x" />
-          <FontAwesomeIcon icon={faChevronDown} size = "2x" />
-          <FontAwesomeIcon icon={faChevronDown} size = "2x" />
+        <div className = "chevron-container flex">
+          <img src = {chevronDown} className = "chevron-icon" alt = "chevron down" />
         </div>
       </div>
   </div>);
