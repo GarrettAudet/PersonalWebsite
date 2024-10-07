@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from 'react'; 
-import { useSpring, animated } from 'react-spring';
 import './landing-page.css'; 
 import Header from './header.js';
 import PersonalLink from './personal-link.js';
+import LandingScroll from './landing-scroll.js'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import chevronDown from '../Img/chevronDown.svg';
 
 const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
   const [particleColor, setParticleColor] = useState('#ffffff');
   const [lineColor, setLineColor] = useState('#ffffff');
-
-  const chevronAnimation = useSpring({
-    to: { transform: 'translateY(-5px)' },
-    from: { transform: 'translateY(0px)' },
-    config: { 
-      mass: 1, 
-      tension: 200, // Increase tension for a snappier animation
-      friction: 10, // Adjust friction for bounce
-      duration: 400, // Duration in milliseconds
-    },
-    loop: { reverse: true },
-  });
 
   useEffect(() => {
     const rootStyles = getComputedStyle(document.documentElement);
@@ -112,16 +99,7 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
         <PersonalLink backgroundColor="rgb(10, 102, 194, 0.1)" divIcon={faLinkedin} link="https://www.linkedin.com/in/garrettaudet/" />
         <PersonalLink backgroundColor="rgb(234, 67, 53, 0.1)" divIcon={faEnvelope} link="mailto:garrett.audet@gmail.com" />
       </div>
-      <animated.div className="scroll-container" style={chevronAnimation}> 
-        <p>Scroll</p>
-        <div className="chevron-container flex">
-          <img
-            src={chevronDown}
-            className="chevron-icon"
-            alt="chevron down"
-          />
-        </div>
-      </animated.div>
+      <LandingScroll />
     </div>
   );
 };

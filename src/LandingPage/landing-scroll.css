@@ -1,0 +1,24 @@
+/* Scroll Container */
+.scroll-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 1.5rem;
+    right: 20%;
+}
+
+.scroll-container p {
+    margin: 0;
+}
+
+/* Chevron Container */
+.chevron-container {
+    flex-direction: column;
+}
+
+/* Chevron */
+.chevron-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+}
