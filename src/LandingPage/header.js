@@ -44,8 +44,8 @@ function Header({ scrollToSection, experienceRef, contactRef }) {
                 <span className="first-name" data-value="garrettaudet.com">garrett audet</span>
             </div>
             <div className="header-right">
-                <a href="#experience" onClick={() => scrollToSection(experienceRef)}>Experience</a>
-                <a href="https://garrett-audet.medium.com/">Writing</a>
+                <a href="#experience" onClick={() => scrollToSection(experienceRef)}>About</a>
+                <a href="https://garrett-audet.medium.com/">Experience</a>
                 <a href="#contact" onClick={() => scrollToSection(contactRef)}>Contact</a>
             </div>
         </div>
