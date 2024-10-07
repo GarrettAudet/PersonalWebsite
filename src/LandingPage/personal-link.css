@@ -1,4 +1,7 @@
 .personal-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--bg-color, rgb(255, 255, 255));
     padding: 8px;
     border-radius: 16px;
@@ -8,4 +11,9 @@
 .personal-link:hover svg {
     transform: scale(1.3);
     transition: all .3s ease;
+}
+
+.standard-icon-size {
+    width: 1.5rem;
+    height: 1.5rem;
 }
