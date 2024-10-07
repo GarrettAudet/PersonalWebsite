@@ -28,6 +28,7 @@
 /* Left Header */
 .header-left {
     display: flex;
+    opacity: 0;
 }
 
 .first-name,
