@@ -151,7 +151,7 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
       <div className = "landing-page-link-container">
         <PersonalLink backgroundColor = "rgb(36, 41, 46, 0.1)" divIcon = {faGithub} link = {"https://github.com/GarrettAudet"}/>
         <PersonalLink backgroundColor = "rgb(10, 102, 194, 0.1)" divIcon = {faLinkedin} link = {"https://www.linkedin.com/in/garrettaudet/"}/>
-        <PersonalLink backgroundColor = "rgb(234, 67, 53, 0.1)" divIcon = {faEnvelope} link = {"https://mail.google.com"}/>
+        <PersonalLink backgroundColor = "rgb(234, 67, 53, 0.1)" divIcon = {faEnvelope} link = {"mailto:garrett.audet@gmail.com"}/>
       </div>
   </div>);
 };
