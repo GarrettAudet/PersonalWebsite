@@ -1,170 +1,134 @@
 import React, { useEffect, useState } from 'react'; 
+import { useSpring, animated } from 'react-spring';
 import './landing-page.css'; 
-import Header from './header.js'
+import Header from './header.js';
 import PersonalLink from './personal-link.js';
-
-/* Import Images */
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import chevronDown from '../Img/chevronDown.svg';
 
-
 const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
-  // Define the state for particle and line colors
   const [particleColor, setParticleColor] = useState('#ffffff');
   const [lineColor, setLineColor] = useState('#ffffff');
 
+  const chevronAnimation = useSpring({
+    to: { transform: 'translateY(-5px)' },
+    from: { transform: 'translateY(0px)' },
+    config: { 
+      mass: 1, 
+      tension: 200, // Increase tension for a snappier animation
+      friction: 10, // Adjust friction for bounce
+      duration: 400, // Duration in milliseconds
+    },
+    loop: { reverse: true },
+  });
+
   useEffect(() => {
-    // Access the CSS variables from the :root element
     const rootStyles = getComputedStyle(document.documentElement);
     const particleColorFromCSS = rootStyles.getPropertyValue('--particle-dot').trim();
     const lineColorFromCSS = rootStyles.getPropertyValue('--particle-line').trim();
 
-    // Set the values of the state variables
     setParticleColor(particleColorFromCSS);
     setLineColor(lineColorFromCSS);
 
+    const particlesJSConfig = {
+      particles: {
+        number: {
+          value: 100,
+          density: {
+            enable: true,
+            value_area: 500,
+          },
+        },
+        color: {
+          value: particleColor,
+        },
+        shape: {
+          type: 'circle',
+          stroke: {
+            width: 0,
+            color: '#000000',
+          },
+        },
+        opacity: {
+          value: 0.5,
+        },
+        size: {
+          value: 3,
+          random: true,
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: lineColor,
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 6,
+          direction: 'none',
+          out_mode: 'out',
+        },
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: {
+            enable: true,
+            mode: 'repulse',
+          },
+        },
+        modes: {
+          grab: {
+            distance: 400,
+            line_linked: {
+              opacity: 1,
+            },
+          },
+        },
+      },
+      retina_detect: true,
+    };
+
     if (window.particlesJS) {
-      window.particlesJS('particles-js', {
-        particles: {
-          number: {
-            value: 100,
-            density: {
-              enable: true,
-              value_area: 500,
-            },
-          },
-          color: {
-            value: particleColor, // Use the color from CSS variable
-          },
-          shape: {
-            type: 'circle',
-            stroke: {
-              width: 0,
-              color: '#000000',
-            },
-            polygon: {
-              nb_sides: 10,
-            },
-            image: {
-              src: 'img/github.svg',
-              width: 100,
-              height: 100,
-            },
-          },
-          opacity: {
-            value: 0.5,
-            random: false,
-            anim: {
-              enable: false,
-              speed: 1,
-              opacity_min: 0.1,
-              sync: false,
-            },
-          },
-          size: {
-            value: 3,
-            random: true,
-            anim: {
-              enable: false,
-              speed: 40,
-              size_min: 0.1,
-              sync: false,
-            },
-          },
-          line_linked: {
-            enable: true,
-            distance: 150,
-            color: lineColor, // Use the line color from CSS variable
-            opacity: 0.4,
-            width: 1,
-          },
-          move: {
-            enable: true,
-            speed: 6,
-            direction: 'none',
-            random: false,
-            straight: false,
-            out_mode: 'out',
-            bounce: false,
-            attract: {
-              enable: false,
-              rotateX: 600,
-              rotateY: 1200,
-            },
-          },
-        },
-        interactivity: {
-          detect_on: 'canvas',
-          events: {
-            onhover: {
-              enable: true,
-              mode: 'repulse',
-            },
-            onclick: {
-              enable: true,
-              mode: 'push',
-            },
-            resize: true,
-          },
-          modes: {
-            grab: {
-              distance: 400,
-              line_linked: {
-                opacity: 1,
-              },
-            },
-            bubble: {
-              distance: 400,
-              size: 40,
-              duration: 2,
-              opacity: 8,
-              speed: 3,
-            },
-            repulse: {
-              distance: 200,
-              duration: 0.4,
-            },
-            push: {
-              particles_nb: 4,
-            },
-            remove: {
-              particles_nb: 2,
-            },
-          },
-        },
-        retina_detect: true,
-      });
+      window.particlesJS('particles-js', particlesJSConfig);
     }
-  }, [particleColor, lineColor]); // Ensure the effect re-runs when colors change
+  }, [particleColor, lineColor]);
 
   return (
-  <div id="particles-js" className="scroll-section flex">
-    <Header />
-      <div className = "landing-page-header">
+    <div id="particles-js" className="scroll-section flex">
+      <Header />
+      <div className="landing-page-header">
         <h1>GARRETT AUDET</h1>
-        <div className = "landing-page-title flex">
+        <div className="landing-page-title flex">
           <p>STRATEGY&nbsp;</p>
-          <p className = "bold">&&nbsp;</p>
+          <p className="bold">&&nbsp;</p>
           <p>FULL-STACK ANALYTICS</p>
         </div>
       </div>
-      <div className = "landing-page-link-container">
-        <PersonalLink backgroundColor = "rgb(36, 41, 46, 0.1)" divIcon = {faGithub} link = {"https://github.com/GarrettAudet"}/>
-        <PersonalLink backgroundColor = "rgb(10, 102, 194, 0.1)" divIcon = {faLinkedin} link = {"https://www.linkedin.com/in/garrettaudet/"}/>
-        <PersonalLink backgroundColor = "rgb(234, 67, 53, 0.1)" divIcon = {faEnvelope} link = {"mailto:garrett.audet@gmail.com"}/>
+      <div className="landing-page-link-container">
+        <PersonalLink backgroundColor="rgb(36, 41, 46, 0.1)" divIcon={faGithub} link="https://github.com/GarrettAudet" />
+        <PersonalLink backgroundColor="rgb(10, 102, 194, 0.1)" divIcon={faLinkedin} link="https://www.linkedin.com/in/garrettaudet/" />
+        <PersonalLink backgroundColor="rgb(234, 67, 53, 0.1)" divIcon={faEnvelope} link="mailto:garrett.audet@gmail.com" />
       </div>
-      <div className = "scroll-container">
+      <animated.div className="scroll-container" style={chevronAnimation}> 
         <p>Scroll</p>
-        <div className = "chevron-container flex">
-          <img src = {chevronDown} className = "chevron-icon" alt = "chevron down" />
+        <div className="chevron-container flex">
+          <img
+            src={chevronDown}
+            className="chevron-icon"
+            alt="chevron down"
+          />
         </div>
-      </div>
-  </div>);
+      </animated.div>
+    </div>
+  );
 };
 
 export default LandingPage;
+
+
 
 
 
