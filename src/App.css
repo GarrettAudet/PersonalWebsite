@@ -16,8 +16,8 @@
   --text-decoration: #FF7F50;
 
   /* Contact Me */
-  --primary-color: #EBEBEB;
-  --secondary-color: #F5F5F5;
+  --primary-color: #121212;
+  --secondary-color: #1F1F1F;
 
   /* Scrollbar */
   --scrollbar-thumb: #121212;
@@ -112,11 +112,29 @@ body {
 /* Simple Bar */
 ::-webkit-scrollbar {
   width: 6px;
+  /* Width of the scrollbar */
+  background: transparent;
+  /* Make the scrollbar background transparent */
+  transition: opacity 0.3s ease-in-out;
+  /* Smooth transition */
+  opacity: 0;
+  /* Invisible by default */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* Make the track transparent */
+  opacity: 0;
+  /* Track is transparent and invisible */
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--scrollbar-thumb);
+  /* Thumb color */
   border-radius: 10px;
+  /* Rounded corners */
+  opacity: 0;
+  /* Invisible by default */
 }
 
 /* Media Queries */
