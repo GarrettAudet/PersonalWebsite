@@ -1,15 +1,22 @@
 /* Root Variable Declaration */
 :root {
+  /* Content Attributes */
   --background-color: #FFFFFF;
   --background-color-main: #121212;
   --background-color-offset: #1F1F1F;
   --background-color-opacity: rgba(255, 255, 255, 0.5);
+
+  /* Particle Attributes */
   --particle-background: #FFFFFF;
   --particle-dot: #121212;
   --particle-line: #121212;
   --text-color: #FFFFFF;
   --text-color-dark: #121212;
   --text-decoration: #FF7F50;
+
+  /* Contact Me */
+  --primary-color: #EBEBEB;
+  --secondary-color: #F5F5F5;
 }
 
 /* General Styles */

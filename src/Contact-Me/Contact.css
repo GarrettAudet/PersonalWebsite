@@ -2,3 +2,30 @@
     width: 100%;
     background: var(--background-color);
 }
+
+.contact-me-left-container {
+    padding: 4rem 2rem;
+    flex: 0 0 30%;
+    max-width: 30%;
+    background: var(--primary-color);
+    height: 1;
+}
+
+.contact-me-profile {
+    border-radius: 1rem;
+    flex: 1;
+    padding: 2rem;
+    background: var(--secondary-color);
+}
+
+.contact-me-profile-top {
+    justify-content: center;
+}
+
+.contact-me-profile img {
+    border-radius: 50%;
+}
+
+.contact-me-right-container {
+    flex: 1;
+}
