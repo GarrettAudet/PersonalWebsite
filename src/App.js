@@ -14,7 +14,7 @@ function App() {
   };
 
   return (
-    <div className="scrolling-container particles-js">
+    <div className="scrolling-container particles-js data-simplebar">
       <LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef}/>
       <Content experienceRef={experienceRef} contactRef={contactRef}/>
       <Cursor />

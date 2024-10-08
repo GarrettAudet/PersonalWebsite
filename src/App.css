@@ -1,5 +1,6 @@
 /* Root Variable Declaration */
 :root {
+
   /* Content Attributes */
   --background-color: #FFFFFF;
   --background-color-main: #121212;
@@ -17,6 +18,10 @@
   /* Contact Me */
   --primary-color: #EBEBEB;
   --secondary-color: #F5F5F5;
+
+  /* Scrollbar */
+  --scrollbar-thumb: #121212;
+  --scrollbar-bg: #FFFFFF;
 }
 
 /* General Styles */
@@ -102,6 +107,16 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Simple Bar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 10px;
 }
 
 /* Media Queries */
