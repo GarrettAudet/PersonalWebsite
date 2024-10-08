@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import './App.css';
-import Header from './Header/Header'
 import Content from './Content/Content'
 import Cursor from './Cursor/Cursor'
 import LandingPage from './LandingPage/landing-page'
+import ContactForm from './Contact-Me/Contact'
 
 function App() {
   const experienceRef = useRef(null);
@@ -18,6 +18,7 @@ function App() {
       <LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef}/>
       <Content experienceRef={experienceRef} contactRef={contactRef}/>
       <Cursor />
+      <ContactForm />
     </div>
   );
 }
