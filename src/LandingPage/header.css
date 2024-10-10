@@ -71,5 +71,4 @@
 .header-right div:hover,
 .header-right a:hover {
     transform: scale(1.1);
-    color: var(--text-color-alternate);
 }
