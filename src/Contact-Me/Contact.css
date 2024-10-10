@@ -1,8 +1,9 @@
 .contact-me-container {
     width: 100%;
-    background: var(--background-color);
+    background: linear-gradient(to right, var(--text-color) 30%, var(--text-color-alternate) 30%);
 }
 
+/* 
 .contact-me-left-container {
     padding: 4rem 2rem;
     flex: 0 0 30%;
@@ -29,3 +30,4 @@
 .contact-me-right-container {
     flex: 1;
 }
+*/
