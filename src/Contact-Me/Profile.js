@@ -1,6 +1,6 @@
 import React from 'react';
 import './Profile.css';
-import myImage from '../Img/picture.png'
+import myImage from '../Img/personalImage.jpg'
 
 function ContactProfile() {
     return (
@@ -12,8 +12,8 @@ function ContactProfile() {
                     </div>
                     <div className="contact-me-profile-bottom flex">
                         <h2 className="name flex">Garrett</h2>
-                        <h2 className="name flex">Audet</h2>
-                        <p className="title flex">Business & Technology</p>
+                        <h2 className="name last-name flex">Audet</h2>
+                        <p className="title flex"><i>BUSINESS & TECHNOLOGY</i></p>
                     </div>
                 </div>
                 <div className="social-links flex">
