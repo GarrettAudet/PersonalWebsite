@@ -32,7 +32,7 @@ a {
 
 /* Header style */
 .header-container h2 {
-    color: white;
+    color: var(--text-color);
     text-align: center;
     margin: 0;
     /* Reset default margin */

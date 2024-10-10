@@ -1,6 +1,6 @@
 h3 {
     align-items: left;
-    color: white;
+    color: var(--text-color);
 }
 
 h3 span {

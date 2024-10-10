@@ -1,8 +1,6 @@
 /* Root Variable Declaration */
 :root {
 
-  /* Content Attributes */
-
   /* Default (Light Mode) Colors */
   --background-color-main: #FFFFFF;
   --background-color-offset: #FFFFFF;
@@ -12,8 +10,10 @@
   --particle-background: #FFFFFF;
   --particle-dot: #121212;
   --particle-line: #121212;
-  --text-color: #FFFFFF;
-  --text-color-dark: #121212;
+
+  /* Text Colors */
+  --text-color: #121212;
+  --text-color-alternate: #FFFFFF;
   --text-decoration: #FF7F50;
 
   /* Contact Me */
@@ -27,9 +27,15 @@
 
 /* Dark Mode for Background Wallpaper */
 .dark-mode {
+
+  /* Background Color */
   --background-color-main: #121212;
   --background-color-offset: #1F1F1F;
   --background-color-opacity: rgba(255, 255, 255, 0.5);
+
+  /* Text Color */
+  --text-color: #FFFFFF;
+  --text-decoration: #FF7F50;
 }
 
 /* General Styles */
