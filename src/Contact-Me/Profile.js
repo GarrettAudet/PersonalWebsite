@@ -4,25 +4,26 @@ import myImage from '../Img/picture.png'
 
 function ContactProfile() {
     return (
-        <div className="Profile">
-            <div className="contact-me-left-container flex">
+        <div className="profile flex">
+            <div className="profile-left-container flex">
                 <div className="contact-me-profile">
                     <div className="contact-me-profile-top flex">
                         <img src={myImage} alt="My Image" className="profile-image" />
                     </div>
-                    <div className="contact-me-profile-bottom">
-                        <h2 className="name">Maya Nelson</h2>
-                        <p className="title">Project Manager</p>
-                        <div className="social-links">
+                    <div className="contact-me-profile-bottom flex">
+                        <h2 className="name flex">Garrett</h2>
+                        <h2 className="name flex">Audet</h2>
+                        <p className="title flex">Business & Technology</p>
+                    </div>
+                </div>
+                <div className="social-links flex">
                             <a href="#facebook">F</a>
                             <a href="#twitter">T</a>
                             <a href="#linkedin">L</a>
                             <a href="#instagram">I</a>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <div className="contact-me-right-container">
+            <div className="profile-right-container">
                 <p className="subheader">Here's who I am & what I do</p>
                 <div className="buttons">
                     <button className="resume-btn">Resume</button>

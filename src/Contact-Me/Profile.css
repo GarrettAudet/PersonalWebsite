@@ -1,0 +1,42 @@
+.profile {
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 90%;
+}
+
+.contact-me-profile img {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+}
+
+.profile-left-container {
+    position: relative;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 5px 15px 5px rgba(255, 255, 255, 0.5);
+    padding: 4rem 8rem;
+    background: var(--secondary-color);
+}
+
+.contact-me-profile-bottom {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.social-links {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: var(--text-color-alternate);
+}
+
+.profile-right-container {
+    background: var(--text-color-alternate);
+}
