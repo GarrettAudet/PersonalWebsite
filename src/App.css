@@ -2,10 +2,11 @@
 :root {
 
   /* Content Attributes */
-  --background-color: #FFFFFF;
-  --background-color-main: #121212;
-  --background-color-offset: #1F1F1F;
-  --background-color-opacity: rgba(255, 255, 255, 0.5);
+
+  /* Default (Light Mode) Colors */
+  --background-color-main: #FFFFFF;
+  --background-color-offset: #FFFFFF;
+  --background-color-opacity: rgba(0, 0, 0, 0);
 
   /* Particle Attributes */
   --particle-background: #FFFFFF;
@@ -22,6 +23,13 @@
   /* Scrollbar */
   --scrollbar-thumb: #121212;
   --scrollbar-bg: #FFFFFF;
+}
+
+/* Dark Mode for Background Wallpaper */
+.dark-mode {
+  --background-color-main: #121212;
+  --background-color-offset: #1F1F1F;
+  --background-color-opacity: rgba(255, 255, 255, 0.5);
 }
 
 /* General Styles */
