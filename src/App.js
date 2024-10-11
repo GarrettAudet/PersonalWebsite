@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
-import Content from './Content/Content';  // Import Content
+import Content from './Content/Content';
 import Cursor from './Cursor/Cursor';
 import LandingPage from './LandingPage/landing-page';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  // Import Router and Routes
+import Header from './LandingPage/header';
 
 function App() {
   const experienceRef = useRef(null);
@@ -13,20 +14,54 @@ function App() {
     sectionRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const location = useLocation(); // Hook to get current route location
+
+  useEffect(() => {
+    // Reinitialize or trigger cursor behavior on route change
+    const cursor = document.querySelector('.custom-cursor');
+    const links = document.querySelectorAll('a');
+
+    // Check if cursor and links exist
+    if (cursor && links) {
+      const addExpand = () => cursor.classList.add('expand');
+      const removeExpand = () => cursor.classList.remove('expand');
+
+      // Remove existing listeners before adding new ones
+      links.forEach(link => {
+        link.removeEventListener('mouseenter', addExpand);
+        link.removeEventListener('mouseleave', removeExpand);
+        link.addEventListener('mouseenter', addExpand);
+        link.addEventListener('mouseleave', removeExpand);
+      });
+
+      // Clean up to avoid memory leaks
+      return () => {
+        links.forEach(link => {
+          link.removeEventListener('mouseenter', addExpand);
+          link.removeEventListener('mouseleave', removeExpand);
+        });
+      };
+    }
+  }, [location]); // Re-run effect on route change
+
   return (
-    <Router>
-      <div className="scrolling-container particles-js data-simplebar">
-        <Routes>
-          <Route
-            path="/"
-            element={<LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef} />}
-          />
-          <Route path="/content" element={<Content />} />  
-        </Routes>
-        <Cursor />
-      </div>
-    </Router>
+    <div className="scrolling-container particles-js data-simplebar">
+      <Header scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef} />
+      <Routes>
+        <Route
+          path="/"
+          element={<LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef} />}
+        />
+        <Route path="/content" element={<Content />} />
+      </Routes>
+    </div>
   );
 }
 
-export default App;
+export default function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}

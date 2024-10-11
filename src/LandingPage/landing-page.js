@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import './landing-page.css'; 
-import Header from './header.js';
 import PersonalLink from './personal-link.js';
+import Cursor from '../Cursor/Cursor.js'
 import LandingScroll from './landing-scroll.js'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -85,7 +85,7 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
 
   return (
     <div id="particles-js" className="scroll-section flex">
-      <Header />
+        <Cursor />
       <div className="landing-page-header">
         <h1>GARRETT AUDET</h1>
         <div className="landing-page-title flex">
