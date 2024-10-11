@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import './landing-page.css'; 
 import PersonalLink from './personal-link.js';
-import Cursor from '../Cursor/Cursor.js'
+import Cursor from '../General/cursor.js'
 import LandingScroll from './landing-scroll.js'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'

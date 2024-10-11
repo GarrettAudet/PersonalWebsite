@@ -1,0 +1,20 @@
+a {
+    cursor: none;
+}
+
+.cursor.hover {
+    transform: scale(5);
+}
+
+.cursor {
+    position: fixed;
+    z-index: 10;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--text-color);
+    transition: 0.1s;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    mix-blend-mode: difference;
+}

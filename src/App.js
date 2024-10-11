@@ -1,10 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
-import Content from './Content/Content';
-import Cursor from './Cursor/Cursor';
+import ExperiencePage from './Experience/experience';
 import LandingPage from './LandingPage/landing-page';
-import Header from './LandingPage/header';
+import Header from './General/header';
 
 function App() {
   const experienceRef = useRef(null);
@@ -52,7 +51,7 @@ function App() {
           path="/"
           element={<LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef} />}
         />
-        <Route path="/content" element={<Content />} />
+        <Route path="/content" element={<ExperiencePage />} />
       </Routes>
     </div>
   );
