@@ -15,7 +15,7 @@ function SectionContent({ title, description, LogoComponent, svgColor, Link }) {
                 <LogoComponent 
                     className="svg-logo" 
                     style={{ 
-                        color: isHovered ? svgColor : 'black', 
+                        color: isHovered ? svgColor : 'rgba(255, 255, 255, 0.5)', 
                         opacity: isHovered ? 1 : 1
                     }} 
                 />
