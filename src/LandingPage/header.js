@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './header.css';
+import { Link } from 'react-router-dom';  // Import Link
 
 function Header({ scrollToSection, experienceRef, contactRef }) {
     useEffect(() => {
@@ -45,7 +46,7 @@ function Header({ scrollToSection, experienceRef, contactRef }) {
             </div>
             <div className="header-right">
                 <a href="#experience" onClick={() => scrollToSection(experienceRef)}>About</a>
-                <a href="https://garrett-audet.medium.com/">Experience</a>
+                <Link to="/content">Experience</Link>
                 <a href="https://garrett-audet.medium.com/">Writing</a>
                 <a href="#contact" onClick={() => scrollToSection(contactRef)}>Contact</a>
             </div>
@@ -54,5 +55,3 @@ function Header({ scrollToSection, experienceRef, contactRef }) {
 }
 
 export default Header;
-
-
