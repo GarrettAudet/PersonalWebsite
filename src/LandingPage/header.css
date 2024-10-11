@@ -34,6 +34,7 @@
 .first-name,
 .last-name {
     display: inline-block;
+    color: var(--text-color);
 }
 
 .collapse-on-hover {

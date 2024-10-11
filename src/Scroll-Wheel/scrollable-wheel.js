@@ -4,8 +4,7 @@ import SimpleBar from 'simplebar-react';
 
 const ScrollableComponent = () => {
     return (
-        <SimpleBar style={{ maxHeight: '400px' }}> 
-        </SimpleBar>
+        <SimpleBar style={{ maxHeight: '400px' }}> </SimpleBar>
     );
 };
 

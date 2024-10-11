@@ -95,9 +95,9 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
         </div>
       </div>
       <div className="landing-page-link-container">
-        <PersonalLink backgroundColor="rgb(36, 41, 46, 0.1)" divIcon={faGithub} link="https://github.com/GarrettAudet" />
-        <PersonalLink backgroundColor="rgb(10, 102, 194, 0.1)" divIcon={faLinkedin} link="https://www.linkedin.com/in/garrettaudet/" />
-        <PersonalLink backgroundColor="rgb(234, 67, 53, 0.1)" divIcon={faEnvelope} link="mailto:garrett.audet@gmail.com" />
+        <PersonalLink backgroundColor="rgb(240, 240, 240, 1)" divIcon={faGithub} link="https://github.com/GarrettAudet" />
+        <PersonalLink backgroundColor="rgb(0, 119, 181, 1)" divIcon={faLinkedin} link="https://www.linkedin.com/in/garrettaudet/" />
+        <PersonalLink backgroundColor="rgb(219, 68, 55, 1)" divIcon={faEnvelope} link="mailto:garrett.audet@gmail.com" />
       </div>
       <LandingScroll />
     </div>

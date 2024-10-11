@@ -2,18 +2,18 @@
 :root {
 
   /* Default (Light Mode) Colors */
-  --background-color-main: #FFFFFF;
-  --background-color-offset: #FFFFFF;
+  --background-color-main: #121212;
+  --background-color-offset: #1F1F1F;
   --background-color-opacity: rgba(0, 0, 0, 0);
 
   /* Particle Attributes */
-  --particle-background: rgb(211, 211, 211, 0.5);
-  --particle-dot: #121212;
-  --particle-line: #121212;
+  --particle-background: linear-gradient(135deg, var(--background-color-main) 0%, var(--background-color-offset) 50%, var(--background-color-main) 100%);
+  --particle-dot: #FFFFFF;
+  --particle-line: #FFFFFF;
 
   /* Text Colors */
-  --text-color: #121212;
-  --text-color-alternate: #FFFFFF;
+  --text-color: #FFFFFF;
+  --text-color-alternate: #121212;
   --text-decoration: #FF7F50;
 
   /* Contact Me */
@@ -21,8 +21,8 @@
   --secondary-color: #1F1F1F;
 
   /* Scrollbar */
-  --scrollbar-thumb: #121212;
-  --scrollbar-bg: #FFFFFF;
+  --scrollbar-thumb: #FFFFFF;
+  --scrollbar-bg: #121212;
 }
 
 /* Dark Mode for Background Wallpaper */
@@ -156,6 +156,14 @@ body {
 
 /* Large Screens (840px and up) */
 @media (min-width: 840px) {
+  .scroll-container {
+    opacity: 0 !important;
+  }
+
+  .header-left {
+    opacity: 1 !important;
+  }
+
   body {
     cursor: none !important;
   }

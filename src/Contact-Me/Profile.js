@@ -24,7 +24,7 @@ function ContactProfile() {
                 </div>
             </div>
             <div className="profile-right-container">
-                <p className="subheader">Here's who I am & what I do</p>
+                <h1 className="subheader">That's who I am & what I do</h1>
                 <div className="buttons">
                     <button className="resume-btn">Resume</button>
                     <button className="projects-btn">Projects</button>

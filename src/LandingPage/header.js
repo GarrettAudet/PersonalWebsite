@@ -11,8 +11,8 @@ function Header({ scrollToSection, experienceRef, contactRef }) {
 
         firstNameElement.onmouseover = event => {
             let iteration = 0;
-            const originalName = "garrett audet";
-            const fullName = "garrettaudet.com";
+            const originalName = "garrettaudet.com";
+            const fullName = "garrett audet";
             const targetText = isOriginal ? fullName : originalName;
 
             clearInterval(interval);
@@ -41,7 +41,7 @@ function Header({ scrollToSection, experienceRef, contactRef }) {
     return (
         <div className="header">
             <div className="header-left">
-                <span className="first-name" data-value="garrettaudet.com">garrett audet</span>
+                <span className="first-name" data-value="garrettaudet.com">garrettaudet.com</span>
             </div>
             <div className="header-right">
                 <a href="#experience" onClick={() => scrollToSection(experienceRef)}>About</a>

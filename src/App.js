@@ -18,7 +18,6 @@ function App() {
       <LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef}/>
       <Content experienceRef={experienceRef} contactRef={contactRef}/>
       <Cursor />
-      <ContactForm />
     </div>
   );
 }
