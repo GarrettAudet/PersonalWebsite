@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';  
 import './header.css';
-import ExperiencePage from '../Experience/experience';
 
-
-function Header({ scrollToSection, experienceRef, contactRef }) {
+function Header({ style }) {
     useEffect(() => {
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let interval = null;
@@ -42,7 +40,7 @@ function Header({ scrollToSection, experienceRef, contactRef }) {
     }, []);
 
     return (
-        <div className="header">
+        <div className="header" style = {style}>
             <div className="header-left">
                 <span className="first-name" data-value="garrettaudet.com">garrettaudet.com</span>
             </div>

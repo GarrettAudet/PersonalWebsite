@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="scrolling-container particles-js data-simplebar">
-      <Header scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef} />
+      <Header/>
       <Routes>
         <Route
           path="/"
