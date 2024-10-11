@@ -51,7 +51,7 @@ function App() {
           path="/"
           element={<LandingPage scrollToSection={scrollToSection} experienceRef={experienceRef} contactRef={contactRef} />}
         />
-        <Route path="/content" element={<ExperiencePage />} />
+        <Route path="/experience" element={<ExperiencePage />} />
       </Routes>
     </div>
   );
