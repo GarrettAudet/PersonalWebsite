@@ -3,7 +3,6 @@ import './App.css';
 import Content from './Content/Content'
 import Cursor from './Cursor/Cursor'
 import LandingPage from './LandingPage/landing-page'
-import ContactForm from './Contact-Me/Contact'
 
 function App() {
   const experienceRef = useRef(null);
