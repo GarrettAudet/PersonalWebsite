@@ -53,6 +53,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
+  overflow: overlay;
 }
 
 #root {
@@ -137,7 +138,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--scrollbar-bg);
   /* Make the track transparent */
   opacity: 0;
   /* Track is transparent and invisible */
@@ -176,6 +177,18 @@ body {
 
 /* Medium Screens (between 700px and 840px) */
 @media (max-width: 840px) {
+  .landing-page-header h1 {
+    font-size: 3rem !important;
+  }
+
+  .landing-page-title p {
+    font-size: 1rem !important;
+  }
+
+  .scroll-container {
+    opacity: 0 !important;
+  }
+
   .header-left {
     opacity: 1 !important;
   }
@@ -211,6 +224,10 @@ body {
 
 /* Small Screens (between 500px and 700px) */
 @media (max-width: 700px) {
+  .scroll-container {
+    opacity: 0 !important;
+  }
+
   .cursor {
     display: none;
   }
@@ -240,6 +257,10 @@ body {
 
 /* Extra Small Screens (below 500px) */
 @media (max-width: 500px) {
+  .scroll-container {
+    opacity: 0 !important;
+  }
+
   .header-container {
     min-width: 16em !important;
   }
