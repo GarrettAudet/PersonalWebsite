@@ -279,4 +279,10 @@ body {
   .header-container h2 {
     padding-left: 1em;
   }
+
+  /* Font-Size of Hero Message */
+  .hero-message-container span {
+    font-size: 1rem !important;
+  }
+
 }
