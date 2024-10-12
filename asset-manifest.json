@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.389edaf5.css",
-    "main.js": "/static/js/main.96b59706.js",
+    "main.js": "/static/js/main.4ee5e212.js",
     "static/js/453.55c3503c.chunk.js": "/static/js/453.55c3503c.chunk.js",
     "static/media/StudioFeixenSans-Semibold.ttf": "/static/media/StudioFeixenSans-Semibold.f79e157c90ec0b949429.ttf",
     "static/media/StudioFeixenSans-Regular.ttf": "/static/media/StudioFeixenSans-Regular.28b38b7ba177a3792b45.ttf",
@@ -18,11 +18,11 @@
     "static/media/chevronDown.svg": "/static/media/chevronDown.ae7977f71bafdbcce3ff150d6cf14ab1.svg",
     "static/media/underline.svg": "/static/media/underline.f2a263c8ff384281867b.svg",
     "main.389edaf5.css.map": "/static/css/main.389edaf5.css.map",
-    "main.96b59706.js.map": "/static/js/main.96b59706.js.map",
+    "main.4ee5e212.js.map": "/static/js/main.4ee5e212.js.map",
     "453.55c3503c.chunk.js.map": "/static/js/453.55c3503c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.389edaf5.css",
-    "static/js/main.96b59706.js"
+    "static/js/main.4ee5e212.js"
   ]
 }
