@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import Header from '../General/header'
 
 /* Styling */
 import './experience.css';
@@ -24,10 +25,13 @@ function ExperiencePage () {
     }, [location]); // Run this effect whenever the location (including hash) changes
 
     return (
-        <div className="main-content">
-            <HeroMessage />
-            <Experience experienceRef={experienceRef} contactRef={contactRef} />
-            <Cursor />
+        <div className = "full-main flex">
+            <Header style= {{position: 'relative'}}/>
+            <div className="main-content">
+                <HeroMessage />
+                <Experience experienceRef={experienceRef} contactRef={contactRef} />
+                <Cursor />
+            </div>
         </div>
     );
 }

@@ -45,7 +45,6 @@ function App() {
 
   return (
     <div className="scrolling-container particles-js data-simplebar">
-      <Header/>
       <Routes>
         <Route
           path="/"

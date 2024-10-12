@@ -3,6 +3,7 @@ import './landing-page.css';
 import PersonalLink from './personal-link.js';
 import Cursor from '../General/cursor.js'
 import LandingScroll from './landing-scroll.js'
+import Header from '../General/header.js'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
@@ -85,6 +86,7 @@ const LandingPage = ({ scrollToSection, experienceRef, contactRef }) => {
 
   return (
     <div id="particles-js" className="scroll-section flex">
+      <Header style= {{position: 'absolute'}}/>
         <Cursor />
       <div className="landing-page-header">
         <h1>GARRETT AUDET</h1>
