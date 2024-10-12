@@ -1,13 +1,12 @@
 /* All Elements of the Header */
 .header {
     display: flex;
-    width: 100%vw;
     top: 0;
     left: 0;
     z-index: 10;
     flex-direction: row;
     box-sizing: border-box;
-    width: calc(100% - 6px);
+    width: calc(100%);
     padding: 1.5rem 3rem;
     justify-content: space-between;
     color: var(--text-color-dark);

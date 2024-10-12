@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import './App.css';
 import ExperiencePage from './Experience/experience';
 import LandingPage from './LandingPage/landing-page';
-import Header from './General/header';
 
 function App() {
   const experienceRef = useRef(null);
