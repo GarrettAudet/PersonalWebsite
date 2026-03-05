@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import ExperiencePage from './Experience/experience';
 import LandingPage from './LandingPage/landing-page';
@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="scrolling-container particles-js data-simplebar">
       <Routes>
-        <Route path="/" element={<LandingPage />}/>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/experience" element={<ExperiencePage />} />
       </Routes>
     </div>
