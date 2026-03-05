@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';  
+import { Link } from 'react-router-dom';
 import './header.css';
 
 function Header({ style }) {
@@ -36,16 +36,16 @@ function Header({ style }) {
             }, 30);
         };
 
-        return () => clearInterval(interval); 
+        return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className="header" style = {style}>
+        <div className="header" style={style}>
             <div className="header-left">
                 <span className="first-name" data-value="garrettaudet.com">garrettaudet.com</span>
             </div>
             <div className="header-right">
-                <Link to="/">About</Link> 
+                <a href="/">About</a>
                 <Link to="/experience">Experience</Link>
                 <a href="https://garrett-audet.medium.com/">Writing</a>
                 <Link to="/experience#contact">Contact</Link>
