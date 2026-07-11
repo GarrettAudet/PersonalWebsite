@@ -1,18 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.312b4b53.css",
-    "main.js": "/static/js/main.13e186de.js",
+    "main.css": "/static/css/main.6f8e5b98.css",
+    "main.js": "/static/js/main.1fdc1ac6.js",
     "static/js/453.55c3503c.chunk.js": "/static/js/453.55c3503c.chunk.js",
-    "static/media/StudioFeixenSans-Semibold.ttf": "/static/media/StudioFeixenSans-Semibold.f79e157c90ec0b949429.ttf",
-    "static/media/StudioFeixenSans-Regular.ttf": "/static/media/StudioFeixenSans-Regular.28b38b7ba177a3792b45.ttf",
-    "static/media/StudioFeixenSans-Bold.ttf": "/static/media/StudioFeixenSans-Bold.0c86f3a315e031614b6f.ttf",
+    "static/media/inter-latin-ext-wght-normal.woff2": "/static/media/inter-latin-ext-wght-normal.8bff79fbfaa8b8167a0b.woff2",
+    "static/media/inter-latin-wght-normal.woff2": "/static/media/inter-latin-wght-normal.4f2981d82860061bca3e.woff2",
+    "static/media/inter-cyrillic-ext-wght-normal.woff2": "/static/media/inter-cyrillic-ext-wght-normal.b5cdd4765614e027c252.woff2",
+    "static/media/inter-greek-wght-normal.woff2": "/static/media/inter-greek-wght-normal.4f908aee8194b11d9c35.woff2",
+    "static/media/inter-cyrillic-wght-normal.woff2": "/static/media/inter-cyrillic-wght-normal.49594fb515ba00213fc3.woff2",
+    "static/media/inter-greek-ext-wght-normal.woff2": "/static/media/inter-greek-ext-wght-normal.f4df85d151e5ee39bc2b.woff2",
+    "static/media/inter-vietnamese-wght-normal.woff2": "/static/media/inter-vietnamese-wght-normal.ab4bb8dcda024fe6eff2.woff2",
     "index.html": "/index.html",
-    "main.312b4b53.css.map": "/static/css/main.312b4b53.css.map",
-    "main.13e186de.js.map": "/static/js/main.13e186de.js.map",
+    "main.6f8e5b98.css.map": "/static/css/main.6f8e5b98.css.map",
+    "main.1fdc1ac6.js.map": "/static/js/main.1fdc1ac6.js.map",
     "453.55c3503c.chunk.js.map": "/static/js/453.55c3503c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.312b4b53.css",
-    "static/js/main.13e186de.js"
+    "static/css/main.6f8e5b98.css",
+    "static/js/main.1fdc1ac6.js"
   ]
 }

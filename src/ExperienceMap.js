@@ -119,11 +119,11 @@ export default function ExperienceMap({
         <path className="map-graticule" d={graticulePath} />
 
         <g className="map-countries">
-          {countries.map((country) => (
+          {countries.map((country, index) => (
             <path
               className="map-country"
               d={drawPath(country)}
-              key={country.id}
+              key={String(country.id) + "-" + index}
               style={{ fill: "url(#" + dotPatternId + ")" }}
             />
           ))}
@@ -145,6 +145,28 @@ export default function ExperienceMap({
                 <circle className="map-light-halo" r="7" />
                 <circle className="map-light-core" r="1.55" />
               </g>
+            );
+          })}
+        </g>
+
+
+        <g className="map-network-routes" aria-hidden="true">
+          {experiences.map((experience, index) => {
+            if (index === activeIndex) return null;
+            const point = projectLocation(experience.coordinates);
+            const controlX = (activeX + point[0]) / 2;
+            const controlY = Math.min(activeY, point[1]) - 44 - Math.abs(activeX - point[0]) * 0.08;
+            const networkRoute =
+              "M " + activeX + " " + activeY +
+              " Q " + controlX + " " + controlY +
+              " " + point[0] + " " + point[1];
+            return (
+              <path
+                className="map-network-route"
+                d={networkRoute}
+                key={"route-" + activeExperience.id + "-" + experience.id}
+                style={{ "--route-index": index }}
+              />
             );
           })}
         </g>
@@ -179,6 +201,7 @@ export default function ExperienceMap({
               <g
                 className={classes}
                 key={experience.id}
+                style={{ "--node-index": index }}
                 transform={"translate(" + point[0] + " " + point[1] + ")"}
               >
                 {active && <circle className="map-node-pulse" r="15" />}
@@ -188,6 +211,7 @@ export default function ExperienceMap({
                   filter={active ? "url(#" + glowFilterId + ")" : undefined}
                   r={active ? 4.5 : 3}
                 />
+                {active && <text className="map-location-label" x="12" y="-11">{experience.location}</text>}
               </g>
             );
           })}

@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { prefersReducedMotion } from "./motionPreferences";
 
-const TAU = Math.PI * 2;
+const FOCAL_X = 0.72;
+const FOCAL_Y = 0.53;
 
 function seededRandom(seed) {
   let value = seed >>> 0;
@@ -13,224 +16,281 @@ function seededRandom(seed) {
   };
 }
 
-function buildParticles(count) {
-  const random = seededRandom(74091);
-  return Array.from({ length: count }, (_, index) => {
-    const layerRoll = random();
-    const layer = layerRoll < 0.18 ? 0 : layerRoll < 0.68 ? 1 : 2;
-    const amber = random() > (layer === 0 ? 0.78 : 0.7);
-    return {
-      x: random(),
-      offset: (random() - 0.5) * (amber ? 0.36 : 0.43),
-      phase: random() * TAU,
-      size: (0.35 + random() * (index % 17 === 0 ? 2.15 : 1.05)) * (0.78 + layer * 0.2),
-      alpha: (0.14 + random() * 0.68) * (0.7 + layer * 0.15),
-      speed: 0.000005 + random() * 0.000012 + layer * 0.000003,
-      amber,
-      layer,
-    };
-  });
+const flowVertex = [
+  "uniform float uTime;",
+  "uniform vec2 uPointer;",
+  "uniform float uPointerStrength;",
+  "uniform float uPixelRatio;",
+  "attribute vec3 aSeed;",
+  "varying float vAmber;",
+  "varying float vAlpha;",
+  "vec2 flowPosition(float progress, vec3 seed) {",
+  "  float x = fract(progress + uTime * (0.004 + seed.z * 0.003));",
+  "  float stream = sin(x * 9.8 + seed.x * 6.283 + uTime * (0.22 + seed.z * 0.08));",
+  "  stream += sin(x * 21.0 + seed.y * 4.8 - uTime * 0.13) * 0.28;",
+  "  float baseY = 0.5 + stream * (0.12 + seed.z * 0.045) + (seed.y - 0.5) * 0.42;",
+  "  float convergence = smoothstep(0.34, 0.72, x);",
+  "  float release = smoothstep(0.72, 1.0, x);",
+  "  float y = mix(baseY, 0.53, convergence * 0.9);",
+  "  y = mix(y, 0.53 + (seed.y - 0.5) * 0.72 + stream * 0.11, release);",
+  "  vec2 p = vec2(x, y);",
+  "  vec2 delta = uPointer - p;",
+  "  float influence = (1.0 - smoothstep(0.0, 0.24, length(delta))) * uPointerStrength;",
+  "  return p + delta * influence * (0.035 + seed.z * 0.025);",
+  "}",
+  "void main() {",
+  "  vec2 p = flowPosition(position.x, aSeed);",
+  "  gl_Position = vec4(p.x * 2.0 - 1.0, (1.0 - p.y) * 2.0 - 1.0, 0.0, 1.0);",
+  "  gl_PointSize = mix(1.0, 2.55, aSeed.z) * uPixelRatio;",
+  "  float nearNode = 1.0 - smoothstep(0.0, 0.22, abs(p.x - 0.72));",
+  "  vAmber = clamp(smoothstep(0.58, 0.82, p.x) + nearNode * 0.55 + step(0.82, p.x) * aSeed.x * 0.36, 0.0, 1.0);",
+  "  vAlpha = mix(0.18, 0.86, aSeed.z) * mix(0.42, 1.0, nearNode);",
+  "  if (p.x < 0.34) vAlpha *= 0.08;",
+  "}",
+].join("\n");
+
+const pointFragment = [
+  "varying float vAmber;",
+  "varying float vAlpha;",
+  "void main() {",
+  "  float radius = length(gl_PointCoord - 0.5);",
+  "  float core = 1.0 - smoothstep(0.18, 0.5, radius);",
+  "  vec3 cyan = vec3(0.012, 0.785, 0.953);",
+  "  vec3 amber = vec3(1.0, 0.624, 0.11);",
+  "  gl_FragColor = vec4(mix(cyan, amber, vAmber), core * vAlpha);",
+  "}",
+].join("\n");
+
+const lineVertex = [
+  "uniform float uTime;",
+  "uniform vec2 uPointer;",
+  "uniform float uPointerStrength;",
+  "attribute vec3 aSeed;",
+  "varying float vAmber;",
+  "varying float vAlpha;",
+  "vec2 flowPosition(float x, vec3 seed) {",
+  "  float stream = sin(x * 9.8 + seed.x * 6.283 + uTime * (0.11 + seed.z * 0.04));",
+  "  stream += sin(x * 20.0 + seed.y * 4.2 - uTime * 0.07) * 0.22;",
+  "  float baseY = 0.5 + stream * (0.105 + seed.z * 0.035) + (seed.y - 0.5) * 0.34;",
+  "  float convergence = smoothstep(0.34, 0.72, x);",
+  "  float release = smoothstep(0.72, 1.0, x);",
+  "  float y = mix(baseY, 0.53, convergence * 0.92);",
+  "  y = mix(y, 0.53 + (seed.y - 0.5) * 0.62 + stream * 0.08, release);",
+  "  vec2 p = vec2(x, y);",
+  "  vec2 delta = uPointer - p;",
+  "  float influence = (1.0 - smoothstep(0.0, 0.24, length(delta))) * uPointerStrength;",
+  "  return p + delta * influence * (0.025 + seed.z * 0.018);",
+  "}",
+  "void main() {",
+  "  vec2 p = flowPosition(position.x, aSeed);",
+  "  gl_Position = vec4(p.x * 2.0 - 1.0, (1.0 - p.y) * 2.0 - 1.0, 0.0, 1.0);",
+  "  float nearNode = 1.0 - smoothstep(0.0, 0.2, abs(p.x - 0.72));",
+  "  vAmber = clamp(smoothstep(0.62, 0.84, p.x) + nearNode * 0.45, 0.0, 1.0);",
+  "  vAlpha = mix(0.055, 0.26, aSeed.z) * (p.x < 0.34 ? 0.05 : 1.0);",
+  "}",
+].join("\n");
+
+const lineFragment = [
+  "varying float vAmber;",
+  "varying float vAlpha;",
+  "void main() {",
+  "  vec3 cyan = vec3(0.012, 0.785, 0.953);",
+  "  vec3 amber = vec3(1.0, 0.624, 0.11);",
+  "  gl_FragColor = vec4(mix(cyan, amber, vAmber), vAlpha);",
+  "}",
+].join("\n");
+
+const focalVertex = [
+  "varying vec2 vUv;",
+  "void main() {",
+  "  vUv = uv;",
+  "  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);",
+  "}",
+].join("\n");
+
+const focalFragment = [
+  "uniform float uTime;",
+  "uniform float uReduced;",
+  "varying vec2 vUv;",
+  "void main() {",
+  "  float d = length(vUv - 0.5);",
+  "  float pulse = mix(1.0, 0.92 + sin(uTime * 1.3) * 0.08, 1.0 - uReduced);",
+  "  float core = 1.0 - smoothstep(0.0, 0.045 * pulse, d);",
+  "  float whiteCore = 1.0 - smoothstep(0.0, 0.014, d);",
+  "  float glow = (1.0 - smoothstep(0.02, 0.47, d)) * 0.68;",
+  "  float ringOne = (1.0 - smoothstep(0.006, 0.012, abs(d - fract(uTime * 0.045) * 0.38))) * 0.16 * (1.0 - uReduced);",
+  "  float ringTwo = (1.0 - smoothstep(0.006, 0.012, abs(d - fract(uTime * 0.045 + 0.5) * 0.38))) * 0.11 * (1.0 - uReduced);",
+  "  vec3 amber = vec3(1.0, 0.624, 0.11);",
+  "  vec3 cyan = vec3(0.16, 0.85, 1.0);",
+  "  vec3 color = mix(cyan, amber, smoothstep(0.42, 0.05, d));",
+  "  color = mix(color, vec3(1.0), whiteCore);",
+  "  gl_FragColor = vec4(color, max(max(glow, core), ringOne + ringTwo));",
+  "}",
+].join("\n");
+
+function particleCount(width) {
+  if (width < 560) return 1600;
+  if (width < 900) return 3800;
+  if (width < 1280) return 6200;
+  return 8200;
 }
 
-function waveY(x, time, amber, phase = 0, depth = 1) {
-  const drift = time * (0.00013 + depth * 0.000035);
-  if (amber) {
-    return 0.53 + Math.sin(x * Math.PI * 2.28 + 2.72 - drift + phase) * 0.115 + Math.sin(x * Math.PI * 5.2 + drift * 0.64) * 0.028;
+function buildPointCloud(count, random) {
+  const positions = new Float32Array(count * 3);
+  const seeds = new Float32Array(count * 3);
+  for (let index = 0; index < count; index += 1) {
+    positions[index * 3] = random();
+    seeds[index * 3] = random();
+    seeds[index * 3 + 1] = random();
+    seeds[index * 3 + 2] = random();
   }
-  return 0.49 + Math.sin(x * Math.PI * 2.12 + 0.36 + drift + phase) * 0.158 + Math.sin(x * Math.PI * 5.9 - drift * 0.52) * 0.034;
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute("aSeed", new THREE.BufferAttribute(seeds, 3));
+  return geometry;
 }
 
-function traceWave(context, width, height, time, options) {
-  const { amber, depth, phase = 0, offset = 0, alpha, lineWidth } = options;
-  context.beginPath();
-  for (let px = -12; px <= width + 12; px += depth === 0 ? 10 : 7) {
-    const x = px / width;
-    const y = waveY(x, time, amber, phase, depth) * height + offset;
-    if (px === -12) context.moveTo(px, y);
-    else context.lineTo(px, y);
-  }
-  context.strokeStyle = amber ? `rgba(255,178,63,${alpha})` : `rgba(30,195,255,${alpha})`;
-  context.lineWidth = lineWidth;
-  context.stroke();
-}
-
-function drawRibbon(canvas, context, particles, time, parallax) {
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-  context.clearRect(0, 0, width, height);
-  context.globalCompositeOperation = "lighter";
-
-  const cyanGlow = context.createRadialGradient(width * 0.57, height * 0.49, 0, width * 0.57, height * 0.49, width * 0.44);
-  cyanGlow.addColorStop(0, "rgba(30,195,255,0.1)");
-  cyanGlow.addColorStop(0.46, "rgba(30,195,255,0.035)");
-  cyanGlow.addColorStop(1, "rgba(30,195,255,0)");
-  context.fillStyle = cyanGlow;
-  context.fillRect(0, 0, width, height);
-
-  context.save();
-  context.translate(parallax.x * 0.18, parallax.y * 0.18);
-  context.filter = "blur(5px)";
-  for (let line = 0; line < 8; line += 1) {
-    traceWave(context, width, height, time * 0.34, {
-      amber: line >= 6,
-      depth: 0,
-      phase: line * 0.045,
-      offset: (line - 3.5) * 6.5,
-      alpha: line >= 6 ? 0.055 : 0.045,
-      lineWidth: 5.2,
-    });
-  }
-  context.restore();
-
-  context.save();
-  context.translate(parallax.x * 0.48, parallax.y * 0.48);
-  context.filter = "none";
-  for (let line = 0; line < 38; line += 1) {
-    const amber = line >= 26;
-    const local = amber ? line - 26 : line;
-    const center = amber ? 5.5 : 12.5;
-    traceWave(context, width, height, time * 0.68, {
-      amber,
-      depth: 1,
-      phase: local * (amber ? 0.034 : 0.024),
-      offset: (local - center) * (amber ? 2.45 : 1.7),
-      alpha: amber ? 0.075 + local * 0.01 : 0.052 + local * 0.0035,
-      lineWidth: amber ? 0.72 : 0.58,
-    });
-  }
-  context.restore();
-
-  context.save();
-  context.translate(parallax.x, parallax.y);
-  [false, true].forEach((amber) => {
-    context.shadowColor = amber ? "rgba(255,178,63,0.52)" : "rgba(34,228,255,0.5)";
-    context.shadowBlur = 9;
-    traceWave(context, width, height, time, {
-      amber,
-      depth: 2,
-      alpha: 0.88,
-      lineWidth: amber ? 1.35 : 1.28,
-    });
-  });
-  context.shadowBlur = 0;
-
-  particles.forEach((particle, index) => {
-    const depth = 0.45 + particle.layer * 0.34;
-    const xNorm = (particle.x + time * particle.speed * depth) % 1;
-    const envelope = 0.24 + Math.sin(xNorm * Math.PI) * 0.76;
-    const yNorm = waveY(xNorm, time * depth, particle.amber, particle.phase * 0.02, particle.layer) + particle.offset * envelope;
-    const x = xNorm * width + parallax.x * depth;
-    const y = yNorm * height + parallax.y * depth;
-    const color = particle.amber ? "255,178,63" : "30,195,255";
-
-    if (index % 23 === 0 && particle.layer > 0) {
-      context.beginPath();
-      context.moveTo(x, y);
-      context.lineTo(x, waveY(xNorm, time * depth, particle.amber, 0, particle.layer) * height + parallax.y * depth);
-      context.strokeStyle = `rgba(${color},0.1)`;
-      context.lineWidth = 0.5;
-      context.stroke();
+function buildRibbonGeometry(random) {
+  const positions = [];
+  const seeds = [];
+  for (let ribbon = 0; ribbon < 42; ribbon += 1) {
+    const seed = [random(), random(), random()];
+    for (let segment = 0; segment < 120; segment += 1) {
+      positions.push(segment / 120, 0, 0, (segment + 1) / 120, 0, 0);
+      seeds.push(seed[0], seed[1], seed[2], seed[0], seed[1], seed[2]);
     }
-
-    context.beginPath();
-    context.arc(x, y, particle.size, 0, TAU);
-    context.fillStyle = `rgba(${color},${particle.alpha})`;
-    context.fill();
-  });
-  context.restore();
-  context.globalCompositeOperation = "source-over";
-}
-
-export function AnimatedMetric({ value, label, className, delay = 0 }) {
-  const valueRef = useRef(null);
-
-  useEffect(() => {
-    const element = valueRef.current;
-    if (!element) return undefined;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const numeric = Number.parseFloat(value);
-    const suffix = value.replace(/[\d.]/g, "");
-    const decimals = value.includes(".") ? 1 : 0;
-    if (reduced) {
-      element.textContent = value;
-      return undefined;
-    }
-
-    let frame;
-    const start = performance.now() + delay;
-    const duration = 620;
-    const tick = (now) => {
-      if (now < start) {
-        frame = requestAnimationFrame(tick);
-        return;
-      }
-      const progress = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      element.textContent = `${(numeric * eased).toFixed(decimals)}${suffix}`;
-      if (progress < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [delay, value]);
-
-  return <div className={`metric ${className}`}><strong ref={valueRef}>0</strong><span>{label}</span></div>;
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setAttribute("aSeed", new THREE.Float32BufferAttribute(seeds, 3));
+  return geometry;
 }
 
 export default function SignalCanvas() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    if (process.env.NODE_ENV === "test") return undefined;
     const canvas = canvasRef.current;
-    if (!canvas) return undefined;
-    const context = canvas.getContext("2d", { alpha: true, desynchronized: true });
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const motionScale = reduced ? 0.34 : 1;
+    const hero = canvas && canvas.closest(".hero");
+    if (!canvas || !hero) return undefined;
+
+    const reduced = prefersReducedMotion();
+    const touch = window.matchMedia("(pointer: coarse)").matches;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: "high-performance" });
+    renderer.setClearColor(0x000000, 0);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+    camera.position.z = 1;
+    let pointGeometry;
+    let points;
+    let width = 1;
+    let height = 1;
     let frame;
     let visible = true;
-    let particles = [];
-    let pointerX = 0;
-    let pointerY = 0;
-    let targetX = 0;
-    let targetY = 0;
+    let pointerStrength = 0;
+    const pointerTarget = new THREE.Vector2(FOCAL_X, FOCAL_Y);
+    const pointer = new THREE.Vector2(FOCAL_X, FOCAL_Y);
+    const sharedUniforms = {
+      uTime: { value: 0 },
+      uPointer: { value: pointer },
+      uPointerStrength: { value: 0 },
+      uPixelRatio: { value: 1 },
+    };
+
+    const pointMaterial = new THREE.ShaderMaterial({ uniforms: sharedUniforms, vertexShader: flowVertex, fragmentShader: pointFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
+    const lineMaterial = new THREE.ShaderMaterial({ uniforms: sharedUniforms, vertexShader: lineVertex, fragmentShader: lineFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
+    const lines = new THREE.LineSegments(buildRibbonGeometry(seededRandom(9174)), lineMaterial);
+    scene.add(lines);
+
+    const focalMaterial = new THREE.ShaderMaterial({
+      uniforms: { uTime: sharedUniforms.uTime, uReduced: { value: reduced ? 1 : 0 } },
+      vertexShader: focalVertex,
+      fragmentShader: focalFragment,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
+    const focal = new THREE.Mesh(new THREE.PlaneGeometry(0.27, 0.27), focalMaterial);
+    focal.position.set(FOCAL_X * 2 - 1, (1 - FOCAL_Y) * 2 - 1, 0);
+    scene.add(focal);
+
+    const rebuildPoints = () => {
+      if (pointGeometry) pointGeometry.dispose();
+      if (points) scene.remove(points);
+      pointGeometry = buildPointCloud(particleCount(width), seededRandom(Math.round(width * 31 + height)));
+      points = new THREE.Points(pointGeometry, pointMaterial);
+      scene.add(points);
+    };
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
+      const nextWidth = Math.max(1, Math.round(rect.width));
+      const nextHeight = Math.max(1, Math.round(rect.height));
+      const changedBreakpoint = particleCount(width) !== particleCount(nextWidth);
+      width = nextWidth;
+      height = nextHeight;
       const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = Math.max(1, Math.round(rect.width * ratio));
-      canvas.height = Math.max(1, Math.round(rect.height * ratio));
-      context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      particles = buildParticles(rect.width < 640 ? 520 : 1450);
-      if (process.env.NODE_ENV !== "test") {
-        drawRibbon(canvas, context, particles, 0, { x: 0, y: 0 });
-      }
+      renderer.setPixelRatio(ratio);
+      renderer.setSize(width, height, false);
+      sharedUniforms.uPixelRatio.value = ratio;
+      if (!points || changedBreakpoint) rebuildPoints();
+      renderer.render(scene, camera);
     };
 
-    const updatePointer = (event) => {
-      const rect = canvas.getBoundingClientRect();
-      targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 12;
-      targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 8;
+    const movePointer = (event) => {
+      if (touch || reduced) return;
+      const rect = hero.getBoundingClientRect();
+      pointerTarget.set(
+        THREE.MathUtils.clamp((event.clientX - rect.left) / rect.width, 0, 1),
+        THREE.MathUtils.clamp((event.clientY - rect.top) / rect.height, 0, 1),
+      );
+      pointerStrength = 1;
+    };
+
+    const leavePointer = () => {
+      pointerTarget.set(FOCAL_X, FOCAL_Y);
+      pointerStrength = 0;
     };
 
     const render = (time) => {
-      pointerX += (targetX - pointerX) * 0.045;
-      pointerY += (targetY - pointerY) * 0.045;
-      if (visible) drawRibbon(canvas, context, particles, time * motionScale, { x: pointerX, y: pointerY });
-      frame = requestAnimationFrame(render);
+      sharedUniforms.uTime.value = time * 0.001;
+      pointer.lerp(pointerTarget, pointerStrength > 0 ? 0.1 : 0.025);
+      sharedUniforms.uPointerStrength.value += (pointerStrength - sharedUniforms.uPointerStrength.value) * (pointerStrength > 0 ? 0.1 : 0.025);
+      if (visible) renderer.render(scene, camera);
+      if (!reduced) frame = requestAnimationFrame(render);
     };
 
     const resizeObserver = new ResizeObserver(resize);
-    const visibilityObserver = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, { rootMargin: "100px" });
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      canvas.dataset.renderState = visible ? "active" : "paused";
+      if (visible && reduced) renderer.render(scene, camera);
+    }, { rootMargin: "80px" });
+
+    canvas.dataset.renderState = "active";
     resizeObserver.observe(canvas);
     visibilityObserver.observe(canvas);
-    window.addEventListener("pointermove", updatePointer, { passive: true });
+    hero.addEventListener("pointermove", movePointer, { passive: true });
+    hero.addEventListener("pointerleave", leavePointer);
     resize();
-    if (process.env.NODE_ENV !== "test") frame = requestAnimationFrame(render);
+    if (!reduced) frame = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(frame);
       resizeObserver.disconnect();
       visibilityObserver.disconnect();
-      window.removeEventListener("pointermove", updatePointer);
+      hero.removeEventListener("pointermove", movePointer);
+      hero.removeEventListener("pointerleave", leavePointer);
+      if (pointGeometry) pointGeometry.dispose();
+      lines.geometry.dispose();
+      focal.geometry.dispose();
+      pointMaterial.dispose();
+      lineMaterial.dispose();
+      focalMaterial.dispose();
+      renderer.dispose();
     };
   }, []);
 
