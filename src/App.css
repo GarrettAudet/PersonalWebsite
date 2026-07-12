@@ -766,7 +766,8 @@ html.motion-reduced .mountain-frame img { transform: none; }
   .final-mockup .hero { min-height: clamp(720px, 92svh, 820px); }
   .final-mockup .hero-inner { min-height: calc(clamp(720px, 92svh, 820px) - var(--header-height)); }
   .final-mockup .about-grid { gap: 28px; }
-  .final-mockup .signal-tagline { top: 380px; right: 0; bottom: auto; padding-left: 14px; font-size: 0.82rem; line-height: 1.35; }
+  .final-mockup .signal-canvas { top: calc(var(--hero-copy-bottom, 427px) - 20px); right: auto; left: 14px; width: calc(118% - 14px); height: calc(100% - var(--hero-copy-bottom, 427px) + 20px); }
+  .final-mockup .signal-tagline { display: none; }
   .final-mockup .portrait-frame { height: 360px; }
   .final-mockup .about-copy h2 { font-size: 1.55rem; }
   .final-mockup .operating-flow { padding-top: 18px; }

@@ -179,11 +179,34 @@ function Header() {
 
 function Hero() {
   const heroRef = useHeroScroll();
+  const copyRef = useRef(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    const copy = copyRef.current;
+    if (!hero || !copy) return undefined;
+
+    const updateCopyHeight = () => {
+      const heroRect = hero.getBoundingClientRect();
+      const copyRect = copy.getBoundingClientRect();
+      hero.style.setProperty("--hero-copy-bottom", Math.ceil(copyRect.bottom - heroRect.top) + "px");
+    };
+
+    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(updateCopyHeight);
+    updateCopyHeight();
+    if (resizeObserver) resizeObserver.observe(copy);
+    window.addEventListener("resize", updateCopyHeight);
+    return () => {
+      if (resizeObserver) resizeObserver.disconnect();
+      window.removeEventListener("resize", updateCopyHeight);
+    };
+  }, [heroRef]);
+
   return (
     <section className="hero" id="top" ref={heroRef} aria-labelledby="hero-title">
       <SignalCanvas />
       <div className="hero-inner">
-        <div className="hero-copy">
+        <div className="hero-copy" ref={copyRef}>
           <p className="hero-eyebrow">Hello, I&apos;m</p>
           <h1 id="hero-title">Garrett<br />Audet</h1>
           <h2>Strategy &amp; Full-Stack Analytics</h2>

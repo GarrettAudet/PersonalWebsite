@@ -21,6 +21,7 @@ const flowVertex = [
   "uniform vec2 uPointer;",
   "uniform float uPointerStrength;",
   "uniform float uPixelRatio;",
+  "uniform float uTextShield;",
   "attribute vec3 aSeed;",
   "varying float vAmber;",
   "varying float vAlpha;",
@@ -56,7 +57,7 @@ const flowVertex = [
   "  vPattern = emerging;",
   "  vAmber = clamp(smoothstep(0.60, 0.80, p.x) + nearNode * 0.55 + step(0.84, p.x) * aSeed.x * 0.28, 0.0, 1.0);",
   "  vAlpha = mix(0.18, 0.86, aSeed.z) * mix(0.42, 1.0, nearNode) * mix(0.84, 1.42, emerging);",
-  "  if (p.x < 0.34) vAlpha *= 0.08;",
+  "  vAlpha *= mix(0.08, 1.0, smoothstep(uTextShield, uTextShield + 0.08, p.x));",
   "}",
 ].join("\n");
 const pointFragment = [
@@ -78,6 +79,7 @@ const lineVertex = [
   "uniform float uTime;",
   "uniform vec2 uPointer;",
   "uniform float uPointerStrength;",
+  "uniform float uTextShield;",
   "attribute vec3 aSeed;",
   "varying float vAmber;",
   "varying float vAlpha;",
@@ -108,7 +110,8 @@ const lineVertex = [
   "  float nearNode = 1.0 - smoothstep(0.0, 0.2, abs(p.x - 0.72));",
   "  vPattern = emerging;",
   "  vAmber = clamp(smoothstep(0.62, 0.84, p.x) + nearNode * 0.45, 0.0, 1.0);",
-  "  vAlpha = mix(0.055, 0.26, aSeed.z) * mix(0.8, 1.65, emerging) * (p.x < 0.34 ? 0.05 : 1.0);",
+  "  float textShield = mix(0.05, 1.0, smoothstep(uTextShield, uTextShield + 0.08, p.x));",
+  "  vAlpha = mix(0.055, 0.26, aSeed.z) * mix(0.8, 1.65, emerging) * textShield;",
   "}",
 ].join("\n");
 const lineFragment = [
@@ -222,6 +225,7 @@ export default function SignalCanvas() {
       uPointer: { value: pointer },
       uPointerStrength: { value: 0 },
       uPixelRatio: { value: 1 },
+      uTextShield: { value: 0.34 },
     };
 
     const pointMaterial = new THREE.ShaderMaterial({ uniforms: sharedUniforms, vertexShader: flowVertex, fragmentShader: pointFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
@@ -260,6 +264,7 @@ export default function SignalCanvas() {
       renderer.setPixelRatio(ratio);
       renderer.setSize(width, height, false);
       sharedUniforms.uPixelRatio.value = ratio;
+      sharedUniforms.uTextShield.value = window.innerWidth < 768 ? -0.08 : 0.34;
       if (!points || changedBreakpoint) rebuildPoints();
       renderer.render(scene, camera);
     };
