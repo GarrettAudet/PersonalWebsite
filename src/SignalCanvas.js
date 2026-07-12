@@ -25,9 +25,9 @@ const flowVertex = [
   "varying float vAmber;",
   "varying float vAlpha;",
   "vec2 flowPosition(float progress, vec3 seed) {",
-  "  float x = fract(progress + uTime * (0.004 + seed.z * 0.003));",
-  "  float stream = sin(x * 9.8 + seed.x * 6.283 + uTime * (0.22 + seed.z * 0.08));",
-  "  stream += sin(x * 21.0 + seed.y * 4.8 - uTime * 0.13) * 0.28;",
+  "  float x = fract(progress + uTime * (0.014 + seed.z * 0.012));",
+  "  float stream = sin(x * 9.8 + seed.x * 6.283 + uTime * (0.38 + seed.z * 0.14));",
+  "  stream += sin(x * 21.0 + seed.y * 4.8 - uTime * 0.24) * 0.28;",
   "  float baseY = 0.5 + stream * (0.12 + seed.z * 0.045) + (seed.y - 0.5) * 0.42;",
   "  float convergence = smoothstep(0.34, 0.72, x);",
   "  float release = smoothstep(0.72, 1.0, x);",
@@ -69,8 +69,8 @@ const lineVertex = [
   "varying float vAmber;",
   "varying float vAlpha;",
   "vec2 flowPosition(float x, vec3 seed) {",
-  "  float stream = sin(x * 9.8 + seed.x * 6.283 + uTime * (0.11 + seed.z * 0.04));",
-  "  stream += sin(x * 20.0 + seed.y * 4.2 - uTime * 0.07) * 0.22;",
+  "  float stream = sin(x * 9.8 + seed.x * 6.283 + uTime * (0.24 + seed.z * 0.08));",
+  "  stream += sin(x * 20.0 + seed.y * 4.2 - uTime * 0.15) * 0.22;",
   "  float baseY = 0.5 + stream * (0.105 + seed.z * 0.035) + (seed.y - 0.5) * 0.34;",
   "  float convergence = smoothstep(0.34, 0.72, x);",
   "  float release = smoothstep(0.72, 1.0, x);",
@@ -271,6 +271,7 @@ export default function SignalCanvas() {
     }, { rootMargin: "80px" });
 
     canvas.dataset.renderState = "active";
+    canvas.dataset.motionMode = reduced ? "reduced" : "full";
     resizeObserver.observe(canvas);
     visibilityObserver.observe(canvas);
     hero.addEventListener("pointermove", movePointer, { passive: true });
