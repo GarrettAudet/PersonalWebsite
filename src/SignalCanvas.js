@@ -271,7 +271,7 @@ export default function SignalCanvas() {
 
     const movePointer = (event) => {
       if (touch || reduced) return;
-      const rect = hero.getBoundingClientRect();
+      const rect = canvas.getBoundingClientRect();
       pointerTarget.set(
         THREE.MathUtils.clamp((event.clientX - rect.left) / rect.width, 0, 1),
         THREE.MathUtils.clamp((event.clientY - rect.top) / rect.height, 0, 1),

@@ -471,8 +471,15 @@ html.motion-reduced .mountain-frame img { transform: none; }
 /* Continuous final mockup */
 .final-mockup {
   --band-content: 1480px;
+  --container: var(--band-content);
   --band-pad-y: clamp(36px, 4vw, 58px);
   background: linear-gradient(180deg, var(--bg) 0%, #03101a 48%, var(--bg) 100%);
+}
+
+.final-mockup .signal-canvas {
+  right: auto;
+  left: max(40px, calc((100% - var(--band-content)) / 2));
+  width: min(calc(100% - 80px), var(--band-content));
 }
 
 .final-mockup main > .about,
@@ -732,6 +739,7 @@ html.motion-reduced .mountain-frame img { transform: none; }
 .final-mockup .footer-bottom p { margin: 0; color: var(--text-subtle); font-size: 0.6rem; }
 
 @media (max-width: 1199px) {
+  .final-mockup .signal-canvas { left: 24px; width: calc(100% - 48px); }
   .final-mockup .about-panel,
   .final-mockup .experience-panel,
   .final-mockup .projects-panel,
