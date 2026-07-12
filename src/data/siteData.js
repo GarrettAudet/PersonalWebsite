@@ -60,7 +60,7 @@ export const curiosities = [
 ];
 
 export const socialLinks = [
-  { label: "GitHub", href: "https://github.com/GarrettAudet", icon: faGithub },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/garrettaudet/", icon: faLinkedinIn },
-  { label: "Email", href: "mailto:garrett.audet@gmail.com", icon: faEnvelope },
+  { label: "Email", display: "garrett.audet@gmail.com", href: "mailto:garrett.audet@gmail.com", icon: faEnvelope },
+  { label: "LinkedIn", display: "linkedin.com/in/garrettaudet", href: "https://www.linkedin.com/in/garrettaudet/", icon: faLinkedinIn },
+  { label: "GitHub", display: "github.com/GarrettAudet", href: "https://github.com/GarrettAudet", icon: faGithub },
 ];

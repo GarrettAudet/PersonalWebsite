@@ -395,19 +395,32 @@ function Curiosities() {
 
 function Footer() {
   const [revealRef, visible] = useReveal("0px");
+  const currentExperienceIndex = Math.max(experiences.findIndex((item) => item.current), 0);
   return (
     <footer className={"connect-footer section-shell" + (visible ? " visible" : "")} id="contact" ref={revealRef}>
       <div className="panel footer-panel">
-        <div>
-          <SectionLabel number="05">Let&apos;s Connect</SectionLabel>
-          <h2>Let&apos;s build what&apos;s next.</h2>
-          <p>Open to collaborations that create real-world impact.</p>
+        <div className="footer-intro">
+          <SectionLabel>Let&apos;s Connect</SectionLabel>
+          <h2>Let&apos;s build something impactful together.</h2>
+          <span className="short-rule" aria-hidden="true" />
+          <p>I&apos;m open to mission-driven opportunities at the intersection of data, strategy, and technology.</p>
+          <a className="button primary footer-cta" href="mailto:garrett.audet@gmail.com">Get in Touch <FontAwesomeIcon icon={faArrowRight} /></a>
         </div>
-        <nav className="social-links" aria-label="Social links">
-          {socialLinks.map((item, index) => <a href={item.href} aria-label={item.label} key={item.label} style={{ "--social-index": index }}><FontAwesomeIcon icon={item.icon} /></a>)}
+        <nav className="contact-list" aria-label="Contact links">
+          {socialLinks.map((item, index) => (
+            <a href={item.href} key={item.label} style={{ "--social-index": index }}>
+              <span className="contact-icon"><FontAwesomeIcon icon={item.icon} /></span>
+              <span><small>{item.label}</small><strong>{item.display}</strong></span>
+            </a>
+          ))}
         </nav>
-        <a className="button primary footer-cta" href="mailto:garrett.audet@gmail.com">Start a Conversation <FontAwesomeIcon icon={faArrowRight} /></a>
-        <p className="copyright">garrettaudet.com <span>&copy; 2026 Garrett Audet. All rights reserved.</span></p>
+        <div className="footer-orbit" aria-hidden="true">
+          <ExperienceMap experiences={experiences} activeIndex={currentExperienceIndex} />
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; 2026 Garrett Audet. All rights reserved.</p>
+          <p>Built with data. Driven by curiosity.</p>
+        </div>
       </div>
     </footer>
   );
@@ -415,7 +428,7 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="portfolio-app">
+    <div className="portfolio-app final-mockup">
       <Header />
       <main>
         <Hero />

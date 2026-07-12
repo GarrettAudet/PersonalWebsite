@@ -465,3 +465,333 @@ html.motion-reduced *, html.motion-reduced *::before, html.motion-reduced *::aft
 html.motion-reduced .hero-copy, html.motion-reduced .hero-copy > *, html.motion-reduced .signal-canvas, html.motion-reduced .signal-tagline, html.motion-reduced .reveal-section, html.motion-reduced .about-grid > *, html.motion-reduced .stack-layer, html.motion-reduced .operating-flow li, html.motion-reduced .experience-row, html.motion-reduced .experience-panel .map-visual, html.motion-reduced .awards-strip li, html.motion-reduced .project-card, html.motion-reduced .curiosity-list li, html.motion-reduced .now-card, html.motion-reduced .social-links a, html.motion-reduced .footer-cta { opacity: 1 !important; transform: none !important; translate: 0 0 !important; }
 html.motion-reduced .map-route-flow, html.motion-reduced .map-light-halo, html.motion-reduced .map-light-core, html.motion-reduced .map-node-pulse { animation: none !important; }
 html.motion-reduced .mountain-frame img { transform: none; }
+
+
+
+/* Continuous final mockup */
+.final-mockup {
+  --band-content: 1480px;
+  --band-pad-y: clamp(36px, 4vw, 58px);
+  background: linear-gradient(180deg, var(--bg) 0%, #03101a 48%, var(--bg) 100%);
+}
+
+.final-mockup main > .about,
+.final-mockup main > .experience,
+.final-mockup main > .projects,
+.final-mockup main > .curiosities,
+.final-mockup > .connect-footer {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(2, 10, 18, 0.34);
+}
+
+.final-mockup main > .about::before,
+.final-mockup main > .experience::before,
+.final-mockup main > .projects::before,
+.final-mockup main > .curiosities::before,
+.final-mockup > .connect-footer::before {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, rgba(3, 200, 243, 0.32), rgba(3, 200, 243, 0.08) 38%, rgba(255, 159, 28, 0.2) 78%, transparent);
+}
+
+.final-mockup main > .about::after,
+.final-mockup main > .experience::after,
+.final-mockup main > .projects::after,
+.final-mockup main > .curiosities::after {
+  position: absolute;
+  z-index: 3;
+  top: -4px;
+  left: max(20px, calc((100vw - var(--band-content)) / 2));
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--cyan-deep);
+  content: "";
+  transform: rotate(45deg);
+  background: var(--bg);
+}
+
+.final-mockup main > .about { background: linear-gradient(90deg, rgba(3, 200, 243, 0.025), transparent 46%), var(--bg-alt); }
+.final-mockup main > .experience { background: linear-gradient(90deg, transparent, rgba(3, 200, 243, 0.025) 54%, transparent), var(--bg); }
+.final-mockup main > .projects { background: linear-gradient(90deg, rgba(3, 200, 243, 0.018), transparent 64%), var(--bg-alt); }
+.final-mockup main > .curiosities { background: linear-gradient(110deg, rgba(3, 200, 243, 0.04), transparent 48%, rgba(255, 159, 28, 0.025)), var(--bg); }
+.final-mockup > .connect-footer { background: #03101a; }
+
+.final-mockup .about-panel,
+.final-mockup .experience-panel,
+.final-mockup .projects-panel,
+.final-mockup .curiosities-panel,
+.final-mockup .footer-panel {
+  width: min(calc(100% - 80px), var(--band-content));
+  margin-inline: auto;
+  padding: var(--band-pad-y) 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.final-mockup .section-label { margin-bottom: 22px; }
+.final-mockup .about-grid { grid-template-columns: 3.1fr 4.4fr 4.5fr; gap: clamp(34px, 4vw, 68px); }
+.final-mockup .portrait-frame {
+  height: 350px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: 0 0 48px rgba(3, 200, 243, 0.08);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 8%, black 90%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, black 8%, black 90%, transparent 100%);
+}
+.final-mockup .about-copy h2 { font-size: clamp(1.65rem, 2.2vw, 2.35rem); }
+.final-mockup .about-copy p { color: var(--text-muted); font-size: 0.88rem; }
+.final-mockup .operating-flow {
+  padding: 24px 0 0;
+  margin-top: 26px;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+}
+.final-mockup .operating-flow li { padding-inline: 10px; }
+.final-mockup .operating-flow li:first-child { padding-left: 0; }
+
+.final-mockup .experience-grid { grid-template-columns: 5.1fr 6.9fr; gap: clamp(38px, 5vw, 78px); }
+.final-mockup .map-visual,
+.final-mockup .world-map { height: 330px; }
+.final-mockup .experience-list { align-self: center; }
+.final-mockup .experience-row { min-height: 72px; padding: 10px 14px; }
+.final-mockup .experience-row.active { background: linear-gradient(90deg, var(--amber-wash), rgba(255, 159, 28, 0.015)); }
+.final-mockup .experience-row.current.active { background: linear-gradient(90deg, var(--cyan-wash), rgba(3, 200, 243, 0.015)); }
+.final-mockup .awards-strip { padding-top: 16px; margin-top: 18px; }
+
+.final-mockup .projects-panel { padding-block: clamp(34px, 3.5vw, 50px); }
+.final-mockup .carousel-shell { margin-top: 18px; }
+.final-mockup .project-card {
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(6, 24, 36, 0.62), rgba(2, 10, 18, 0.38));
+}
+.final-mockup .project-visual { height: 128px; }
+
+.final-mockup .curiosities-grid {
+  grid-template-areas: "now interests";
+  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 2.35fr);
+  align-items: stretch;
+  gap: clamp(38px, 5vw, 76px);
+}
+.final-mockup .now-card {
+  grid-area: now;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+.final-mockup .now-copy { justify-content: flex-start; padding: 0; }
+.final-mockup .now-copy h3 { max-width: 320px; font-size: 1.45rem; }
+.final-mockup .now-copy p { max-width: 340px; font-size: 0.78rem; }
+.final-mockup .mountain-frame {
+  height: 120px;
+  margin-top: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  opacity: 0.7;
+}
+.final-mockup .curiosity-list {
+  grid-area: interests;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+.final-mockup .curiosity-list li,
+.final-mockup .curiosity-list li:first-child {
+  display: block;
+  padding: 8px clamp(18px, 2.2vw, 34px);
+  border: 0;
+  border-left: 1px solid var(--border);
+}
+.final-mockup .curiosity-list li:first-child { padding-left: 0; border-left: 0; }
+.final-mockup .curiosity-list li > span {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 18px;
+  border: 0;
+  border-bottom: 1px solid var(--cyan-deep);
+  clip-path: none;
+  font-size: 1.25rem;
+}
+.final-mockup .curiosity-list h3 { max-width: 230px; font-size: 0.95rem; }
+.final-mockup .curiosity-list p { max-width: 230px; font-size: 0.74rem; }
+
+.final-mockup .footer-panel {
+  display: grid;
+  grid-template-columns: minmax(420px, 1.2fr) minmax(260px, 0.75fr) minmax(380px, 1fr);
+  align-items: center;
+  gap: clamp(32px, 4vw, 64px);
+  padding-block: clamp(44px, 4vw, 58px) 30px;
+}
+.final-mockup .footer-intro h2 {
+  max-width: 470px;
+  margin: 0;
+  font-size: clamp(2rem, 2.55vw, 2.65rem);
+  font-weight: 450;
+  line-height: 1.12;
+}
+.final-mockup .footer-intro > p {
+  max-width: 430px;
+  margin: 18px 0 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.58;
+}
+.final-mockup .footer-cta {
+  width: 180px;
+  margin-top: 24px;
+  justify-self: start;
+}
+.final-mockup .contact-list { display: grid; gap: 18px; }
+.final-mockup .contact-list a {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: color var(--motion-sm) var(--ease-standard), opacity var(--motion-md) var(--ease-standard), transform var(--motion-md) var(--ease-standard);
+  transition-delay: calc(var(--social-index) * 70ms);
+}
+.final-mockup .connect-footer.visible .contact-list a { opacity: 1; transform: translateY(0); }
+.final-mockup .contact-list a:hover,
+.final-mockup .contact-list a:focus-visible { color: var(--cyan-bright); }
+.final-mockup .contact-icon { display: grid; width: 28px; height: 28px; place-items: center; color: var(--text-secondary); font-size: 0.9rem; }
+.final-mockup .contact-list small,
+.final-mockup .contact-list strong { display: block; min-width: 0; overflow-wrap: anywhere; }
+.final-mockup .contact-list small { color: var(--text-secondary); font-size: 0.66rem; font-weight: 600; }
+.final-mockup .contact-list strong { margin-top: 1px; color: var(--text-muted); font-size: 0.7rem; font-weight: 400; }
+
+.final-mockup .footer-orbit {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 290px;
+  justify-self: end;
+  overflow: hidden;
+  border: 1px solid rgba(3, 200, 243, 0.16);
+  border-radius: 50%;
+  background:
+    linear-gradient(rgba(3, 200, 243, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(3, 200, 243, 0.035) 1px, transparent 1px),
+    rgba(2, 10, 18, 0.5);
+  background-size: 28px 28px;
+  box-shadow: inset 0 0 48px rgba(3, 200, 243, 0.06);
+}
+.final-mockup .footer-orbit::before {
+  position: absolute;
+  z-index: 3;
+  inset: 10%;
+  border: 1px solid rgba(3, 200, 243, 0.12);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+.final-mockup .footer-orbit::after {
+  position: absolute;
+  z-index: 4;
+  left: 57%;
+  top: 62%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 10px var(--amber), 0 0 28px rgba(255, 159, 28, 0.65);
+  content: "";
+  pointer-events: none;
+}
+.final-mockup .footer-orbit .map-visual,
+.final-mockup .footer-orbit .world-map { width: 100%; height: 100%; }
+.final-mockup .footer-orbit .map-visual { transform: scale(1.06); }
+.final-mockup .footer-orbit .world-map { opacity: 0.78; }
+.final-mockup .footer-orbit .map-route-group { display: block; }
+.final-mockup .footer-orbit .map-location-label,
+.final-mockup .footer-orbit .map-route-hub { display: none; }
+.final-mockup .footer-bottom {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+.final-mockup .footer-bottom p { margin: 0; color: var(--text-subtle); font-size: 0.6rem; }
+
+@media (max-width: 1199px) {
+  .final-mockup .about-panel,
+  .final-mockup .experience-panel,
+  .final-mockup .projects-panel,
+  .final-mockup .curiosities-panel,
+  .final-mockup .footer-panel { width: min(calc(100% - 48px), var(--band-content)); }
+  .final-mockup .about-grid { grid-template-columns: 0.85fr 1.15fr; }
+  .final-mockup .stack-diagram { grid-column: 1 / -1; justify-self: center; }
+  .final-mockup .curiosities-grid { grid-template-areas: "now" "interests"; grid-template-columns: 1fr; }
+  .final-mockup .now-card { grid-template-columns: minmax(240px, 0.8fr) minmax(340px, 1.2fr); align-items: center; }
+  .final-mockup .mountain-frame { height: 160px; margin-top: 0; }
+  .final-mockup .footer-panel { grid-template-columns: 1fr 1fr; }
+  .final-mockup .footer-orbit { grid-column: 1 / -1; justify-self: center; }
+}
+
+@media (max-width: 767px) {
+  .final-mockup main > .about::after,
+  .final-mockup main > .experience::after,
+  .final-mockup main > .projects::after,
+  .final-mockup main > .curiosities::after { left: 14px; }
+  .final-mockup .about-panel,
+  .final-mockup .experience-panel,
+  .final-mockup .projects-panel,
+  .final-mockup .curiosities-panel,
+  .final-mockup .footer-panel {
+    width: min(calc(100% - 28px), var(--band-content));
+    padding: 36px 0;
+  }
+  .final-mockup .about-grid,
+  .final-mockup .experience-grid,
+  .final-mockup .curiosities-grid,
+  .final-mockup .footer-panel { grid-template-columns: 1fr; }
+  .final-mockup .hero { min-height: clamp(720px, 92svh, 820px); }
+  .final-mockup .hero-inner { min-height: calc(clamp(720px, 92svh, 820px) - var(--header-height)); }
+  .final-mockup .about-grid { gap: 28px; }
+  .final-mockup .signal-tagline { top: 380px; right: 0; bottom: auto; padding-left: 14px; font-size: 0.82rem; line-height: 1.35; }
+  .final-mockup .portrait-frame { height: 360px; }
+  .final-mockup .about-copy h2 { font-size: 1.55rem; }
+  .final-mockup .operating-flow { padding-top: 18px; }
+  .final-mockup .map-visual,
+  .final-mockup .world-map { height: 240px; }
+  .final-mockup .curiosities-grid { grid-template-areas: "now" "interests"; gap: 30px; }
+  .final-mockup .now-card { grid-template-columns: 1fr; }
+  .final-mockup .mountain-frame { height: 170px; margin-top: 18px; }
+  .final-mockup .curiosity-list { grid-template-columns: 1fr; }
+  .final-mockup .curiosity-list li,
+  .final-mockup .curiosity-list li:first-child {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+  }
+  .final-mockup .curiosity-list li > span { margin: 0; }
+  .final-mockup .footer-panel { gap: 32px; }
+  .final-mockup .footer-intro h2 { font-size: 2rem; }
+  .final-mockup .footer-cta { width: 100%; }
+  .final-mockup .contact-list { gap: 14px; }
+  .final-mockup .footer-orbit { height: 220px; }
+  .final-mockup .footer-bottom { flex-direction: column; gap: 5px; }
+}
+
+html.motion-reduced .final-mockup .contact-list a { opacity: 1 !important; transform: none !important; }
