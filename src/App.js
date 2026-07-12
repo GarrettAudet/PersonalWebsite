@@ -12,6 +12,7 @@ import {
 import SignalCanvas from "./SignalCanvas";
 import { prefersReducedMotion } from "./motionPreferences";
 import ExperienceMap from "./ExperienceMap";
+import FooterNetwork from "./FooterNetwork";
 import ImpactStack from "./ImpactStack";
 import {
   awards,
@@ -24,6 +25,7 @@ import {
   socialLinks,
 } from "./data/siteData";
 import "./App.css";
+import "./webpage-final.css";
 
 function useReveal(rootMargin = "0px 0px -10% 0px") {
   const ref = useRef(null);
@@ -218,7 +220,7 @@ function Hero() {
             <a className="button secondary" href="#about">Learn More <FontAwesomeIcon icon={faArrowDown} /></a>
           </div>
         </div>
-        <p className="signal-tagline">Turning signals<br />into strategy.<span /></p>
+
       </div>
     </section>
   );
@@ -316,7 +318,7 @@ function ProjectVisual({ type }) {
 }
 
 function Projects() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", containScroll: "trimSnaps", dragFree: false });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", containScroll: "trimSnaps", dragFree: false, duration: 28 });
   const [selected, setSelected] = useState(0);
   const [snapCount, setSnapCount] = useState(1);
   const [canPrev, setCanPrev] = useState(false);
@@ -395,7 +397,7 @@ function Curiosities() {
   return (
     <section className="curiosities section-shell" id="insights" aria-labelledby="insights-title">
       <div ref={revealRef} className={"panel curiosities-panel reveal-section" + (visible ? " visible" : "")}>
-        <SectionLabel number="04">Curiosities / Beyond the Work</SectionLabel>
+        <SectionLabel>Curiosities / Beyond the Work</SectionLabel>
         <h2 className="sr-only" id="insights-title">Curiosities and current focus</h2>
         <div className="curiosities-grid">
           <ul className="curiosity-list">
@@ -418,7 +420,7 @@ function Curiosities() {
 
 function Footer() {
   const [revealRef, visible] = useReveal("0px");
-  const currentExperienceIndex = Math.max(experiences.findIndex((item) => item.current), 0);
+
   return (
     <footer className={"connect-footer section-shell" + (visible ? " visible" : "")} id="contact" ref={revealRef}>
       <div className="panel footer-panel">
@@ -438,10 +440,11 @@ function Footer() {
           ))}
         </nav>
         <div className="footer-orbit" aria-hidden="true">
-          <ExperienceMap experiences={experiences} activeIndex={currentExperienceIndex} />
+          <FooterNetwork />
         </div>
         <div className="footer-bottom">
           <p>&copy; 2026 Garrett Audet. All rights reserved.</p>
+          <nav className="footer-legal" aria-label="Legal links"><a href="#top">Privacy Policy</a><a href="#top">Terms of Use</a></nav>
           <p>Built with data. Driven by curiosity.</p>
         </div>
       </div>
@@ -451,7 +454,7 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="portfolio-app final-mockup">
+    <div className="portfolio-app webpage-final">
       <Header />
       <main>
         <Hero />
