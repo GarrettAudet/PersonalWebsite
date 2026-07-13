@@ -215,6 +215,8 @@ export default function SignalCanvas() {
     let points;
     let width = 1;
     let height = 1;
+    let pixelRatio = 0;
+    let resizeFrame = 0;
     let frame;
     let visible = true;
     let pointerStrength = 0;
@@ -257,16 +259,26 @@ export default function SignalCanvas() {
       const rect = canvas.getBoundingClientRect();
       const nextWidth = Math.max(1, Math.round(rect.width));
       const nextHeight = Math.max(1, Math.round(rect.height));
+      const nextPixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      if (nextWidth === width && nextHeight === height && nextPixelRatio === pixelRatio && points) return;
       const changedBreakpoint = particleCount(width) !== particleCount(nextWidth);
       width = nextWidth;
       height = nextHeight;
-      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-      renderer.setPixelRatio(ratio);
+      pixelRatio = nextPixelRatio;
+      renderer.setPixelRatio(pixelRatio);
       renderer.setSize(width, height, false);
-      sharedUniforms.uPixelRatio.value = ratio;
+      sharedUniforms.uPixelRatio.value = pixelRatio;
       sharedUniforms.uTextShield.value = window.innerWidth < 768 ? -0.08 : 0.34;
       if (!points || changedBreakpoint) rebuildPoints();
       renderer.render(scene, camera);
+    };
+
+    const requestResize = () => {
+      if (resizeFrame) return;
+      resizeFrame = requestAnimationFrame(() => {
+        resizeFrame = 0;
+        resize();
+      });
     };
 
     const movePointer = (event) => {
@@ -292,7 +304,7 @@ export default function SignalCanvas() {
       if (!reduced) frame = requestAnimationFrame(render);
     };
 
-    const resizeObserver = new ResizeObserver(resize);
+    const resizeObserver = new ResizeObserver(requestResize);
     const visibilityObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       canvas.dataset.renderState = visible ? "active" : "paused";
@@ -305,11 +317,12 @@ export default function SignalCanvas() {
     visibilityObserver.observe(canvas);
     hero.addEventListener("pointermove", movePointer, { passive: true });
     hero.addEventListener("pointerleave", leavePointer);
-    resize();
+    requestResize();
     if (!reduced) frame = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(frame);
+      if (resizeFrame) cancelAnimationFrame(resizeFrame);
       resizeObserver.disconnect();
       visibilityObserver.disconnect();
       hero.removeEventListener("pointermove", movePointer);

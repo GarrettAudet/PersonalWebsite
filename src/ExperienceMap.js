@@ -51,14 +51,23 @@ function projectLocation(coordinates) {
 export default function ExperienceMap({
   experiences,
   activeIndex,
-  connectorY = MAP_HEIGHT / 2,
+  connectorY,
+  connectorRatio,
 }) {
   const activeExperience = experiences[activeIndex];
   const activeIsCurrent = Boolean(activeExperience.current);
   const activePoint = projectLocation(activeExperience.coordinates);
   const activeX = activePoint[0];
   const activeY = activePoint[1];
-  const hubY = Math.min(Math.max(connectorY, 12), MAP_HEIGHT - 12);
+  const rowAlignedConnectorY =
+    connectorY ??
+    (connectorRatio ??
+      (activeIndex + 0.5) / Math.max(experiences.length, 1)) *
+      MAP_HEIGHT;
+  const hubY = Math.min(
+    Math.max(rowAlignedConnectorY, 12),
+    MAP_HEIGHT - 12,
+  );
   const firstControlX = activeX + Math.max(64, (MAP_HUB_X - activeX) * 0.28);
   const secondControlX = MAP_HUB_X - 112;
   const route =
@@ -150,26 +159,6 @@ export default function ExperienceMap({
         </g>
 
 
-        <g className="map-network-routes" aria-hidden="true">
-          {experiences.map((experience, index) => {
-            if (index === activeIndex) return null;
-            const point = projectLocation(experience.coordinates);
-            const controlX = (activeX + point[0]) / 2;
-            const controlY = Math.min(activeY, point[1]) - 44 - Math.abs(activeX - point[0]) * 0.08;
-            const networkRoute =
-              "M " + activeX + " " + activeY +
-              " Q " + controlX + " " + controlY +
-              " " + point[0] + " " + point[1];
-            return (
-              <path
-                className="map-network-route"
-                d={networkRoute}
-                key={"route-" + activeExperience.id + "-" + experience.id}
-                style={{ "--route-index": index }}
-              />
-            );
-          })}
-        </g>
 
         <g
           className={

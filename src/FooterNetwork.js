@@ -3,6 +3,8 @@ import { prefersReducedMotion } from "./motionPreferences";
 
 const CYAN = [0, 224, 255];
 const AMBER = [255, 138, 0];
+const RESTING_ALPHA = 0.52;
+const RESTING_PULSE = 0.06;
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const mix = (start, end, amount) => start + (end - start) * amount;
@@ -90,8 +92,8 @@ function createBridgeTargets(width, height, count) {
       driftX: mix(6, 22, random()),
       driftY: mix(4, 14, random()),
       phase: random() * Math.PI * 2,
-      size: mix(0.75, 1.9, random()),
-      alpha: mix(0.44, 0.96, random()),
+      size: mix(0.95, 2.15, random()),
+      alpha: mix(0.76, 1, random()),
     });
   }
 
@@ -109,14 +111,15 @@ function formationAt(time) {
 function drawBridgeLines(context, width, height, formation) {
   if (formation < 0.14) return;
 
+  context.save();
   const gradient = context.createLinearGradient(width * 0.06, 0, width * 0.94, 0);
-  gradient.addColorStop(0, "rgba(0,224,255,0.8)");
-  gradient.addColorStop(0.5, "rgba(102,247,255,0.72)");
-  gradient.addColorStop(0.54, "rgba(255,184,77,0.76)");
-  gradient.addColorStop(1, "rgba(255,138,0,0.82)");
+  gradient.addColorStop(0, "rgba(0,224,255,0.96)");
+  gradient.addColorStop(0.5, "rgba(102,247,255,0.9)");
+  gradient.addColorStop(0.54, "rgba(255,184,77,0.92)");
+  gradient.addColorStop(1, "rgba(255,138,0,0.98)");
   context.strokeStyle = gradient;
-  context.lineWidth = 0.8;
-  context.globalAlpha = formation * 0.36;
+  context.lineWidth = mix(1, 1.2, formation);
+  context.globalAlpha = formation * 0.76;
 
   const drawCurve = (resolver) => {
     context.beginPath();
@@ -147,6 +150,7 @@ function drawBridgeLines(context, width, height, formation) {
     context.lineTo(x * width, deckY(x, height));
     context.stroke();
   }
+  context.restore();
 }
 
 export default function FooterNetwork() {
@@ -162,21 +166,30 @@ export default function FooterNetwork() {
     const reduced = prefersReducedMotion();
     let width = 1;
     let height = 1;
+    let pixelRatio = 0;
+    let resizeFrame = 0;
     let particles = [];
     let frame = 0;
     let visible = false;
     let activeSince = performance.now();
 
+    const resizeTarget = canvas.parentElement || canvas;
+
     const resize = () => {
-      const rect = canvas.getBoundingClientRect();
-      width = Math.max(1, Math.round(rect.width));
-      height = Math.max(1, Math.round(rect.height));
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      const rect = resizeTarget.getBoundingClientRect();
+      const nextWidth = Math.max(1, Math.round(rect.width));
+      const nextHeight = Math.max(1, Math.round(rect.height));
+      const nextPixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      if (nextWidth === width && nextHeight === height && nextPixelRatio === pixelRatio && particles.length) return false;
+      width = nextWidth;
+      height = nextHeight;
+      pixelRatio = nextPixelRatio;
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
       const particleCount = width < 340 ? 260 : width < 460 ? 430 : 520;
       particles = createBridgeTargets(width, height, particleCount);
+      return true;
     };
 
     const draw = (time, staticFormation) => {
@@ -200,13 +213,14 @@ export default function FooterNetwork() {
         const red = Math.round(mix(CYAN[0], AMBER[0], colorMix));
         const green = Math.round(mix(CYAN[1], AMBER[1], colorMix));
         const blue = Math.round(mix(CYAN[2], AMBER[2], colorMix));
-        const alpha = mix(0.3, particle.alpha, localFormation);
-        const size = particle.size * mix(0.86, 1.14, localFormation);
+        const idlePulse = Math.sin(elapsed * 0.0011 + particle.phase) * RESTING_PULSE;
+        const alpha = mix(RESTING_ALPHA + idlePulse, particle.alpha, localFormation);
+        const size = particle.size * mix(0.94, 1.24, localFormation);
 
-        if (index % 23 === 0 && localFormation > 0.72) {
+        if (index % 17 === 0) {
           context.beginPath();
-          context.fillStyle = `rgba(${red},${green},${blue},${0.09 * localFormation})`;
-          context.arc(x, y, size * 4.2, 0, Math.PI * 2);
+          context.fillStyle = `rgba(${red},${green},${blue},${0.055 + 0.13 * localFormation})`;
+          context.arc(x, y, size * mix(2.8, 5.2, localFormation), 0, Math.PI * 2);
           context.fill();
         }
 
@@ -229,10 +243,14 @@ export default function FooterNetwork() {
       if (!reduced && !frame && visible) frame = requestAnimationFrame(render);
     };
 
-    const resizeObserver = new ResizeObserver(() => {
-      resize();
-      if (reduced) draw(performance.now(), 1);
-    });
+    const requestResize = () => {
+      if (resizeFrame) return;
+      resizeFrame = requestAnimationFrame(() => {
+        resizeFrame = 0;
+        if (resize() && reduced) draw(performance.now(), 1);
+      });
+    };
+    const resizeObserver = new ResizeObserver(requestResize);
     const visibilityObserver = new IntersectionObserver(([entry]) => {
       const nextVisible = entry.isIntersecting;
       if (nextVisible && !visible) activeSince = performance.now();
@@ -248,7 +266,7 @@ export default function FooterNetwork() {
     }, { rootMargin: "80px" });
 
     canvas.dataset.motionMode = reduced ? "reduced" : "full";
-    resizeObserver.observe(canvas);
+    resizeObserver.observe(resizeTarget);
     visibilityObserver.observe(canvas);
     resize();
     if (reduced) draw(performance.now(), 1);
@@ -256,6 +274,7 @@ export default function FooterNetwork() {
 
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      if (resizeFrame) cancelAnimationFrame(resizeFrame);
       resizeObserver.disconnect();
       visibilityObserver.disconnect();
     };

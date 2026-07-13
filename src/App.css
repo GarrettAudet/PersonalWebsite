@@ -276,7 +276,6 @@ img { display: block; max-width: 100%; }
 .map-activity-light.amber .map-light-halo { stroke: var(--amber); }
 .map-activity-light.amber .map-light-core { fill: var(--amber); }
 .map-route-group { display: none; }
-.map-network-route { fill: none; stroke: var(--amber); stroke-width: 1.25; stroke-linecap: round; opacity: 0.55; stroke-dasharray: 420; stroke-dashoffset: 420; animation: mapNetworkDraw 650ms var(--ease-settle) forwards; animation-delay: calc(var(--route-index) * 70ms); vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px rgba(255, 159, 28, 0.35)); }
 .map-location-label { fill: var(--text-secondary); font-family: var(--font-sans); font-size: 7px; }
 .map-route { fill: none; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .map-route-trace { stroke-width: 1.1; stroke-dasharray: 1 7; opacity: 0.28; }
@@ -389,7 +388,6 @@ img { display: block; max-width: 100%; }
 @keyframes heroElementIn { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
 @keyframes canvasResolve { from { filter: saturate(0.35) brightness(0.45); } to { filter: saturate(1) brightness(1); } }
 @keyframes taglineIn { from { translate: 0 12px; } to { translate: 0 0; } }
-@keyframes mapNetworkDraw { to { stroke-dashoffset: 0; } }
 @keyframes mapRouteFlow { to { stroke-dashoffset: -214; } }
 @keyframes mapLightHalo { 0%, 100% { opacity: 0; transform: scale(0.55); } 42% { opacity: 0.52; } 72% { opacity: 0; transform: scale(1.45); } }
 @keyframes mapLightCore { 0%, 100% { opacity: 0.26; transform: scale(0.82); } 48% { opacity: 1; transform: scale(1.28); } }

@@ -40,6 +40,8 @@ const canvasContext = {
   fillRect() {},
   lineTo() {},
   moveTo() {},
+  restore() {},
+  save() {},
   setTransform() {},
   stroke() {},
 };

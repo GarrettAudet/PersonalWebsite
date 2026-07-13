@@ -7,6 +7,7 @@ import {
   faBars,
   faChevronLeft,
   faChevronRight,
+  faPlay,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import SignalCanvas from "./SignalCanvas";
@@ -26,6 +27,10 @@ import {
 } from "./data/siteData";
 import "./App.css";
 import "./webpage-final.css";
+
+const BRAND_DOMAIN = "garrettaudet.com";
+const BRAND_NAME = "garrett audet";
+const SCRAMBLE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 function useReveal(rootMargin = "0px 0px -10% 0px") {
   const ref = useRef(null);
@@ -85,36 +90,6 @@ function useHeroScroll() {
   return ref;
 }
 
-function useImageParallax() {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node || prefersReducedMotion()) return undefined;
-    let frame;
-    const update = () => {
-      frame = undefined;
-      const rect = node.getBoundingClientRect();
-      const center = rect.top + rect.height / 2;
-      const progress = Math.min(1, Math.max(-1, (center - window.innerHeight / 2) / (window.innerHeight / 2)));
-      node.style.setProperty("--image-parallax", progress.toFixed(4));
-    };
-    const requestUpdate = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-    return () => {
-      if (frame) cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-    };
-  }, []);
-
-  return ref;
-}
-
 function SectionLabel({ number, children }) {
   return (
     <p className="section-label">
@@ -128,6 +103,43 @@ function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("about");
+  const [brandText, setBrandText] = useState(BRAND_DOMAIN);
+  const brandShowsDomain = useRef(true);
+  const brandInterval = useRef(null);
+
+  const transformBrand = useCallback(() => {
+    const target = brandShowsDomain.current ? BRAND_NAME : BRAND_DOMAIN;
+    window.clearInterval(brandInterval.current);
+
+    if (prefersReducedMotion()) {
+      setBrandText(target);
+      brandShowsDomain.current = !brandShowsDomain.current;
+      return;
+    }
+
+    let iteration = 0;
+    brandInterval.current = window.setInterval(() => {
+      setBrandText(
+        target
+          .split("")
+          .map((character, index) => {
+            if (index < iteration || character === " " || character === ".") {
+              return character;
+            }
+            return SCRAMBLE_LETTERS[Math.floor(Math.random() * SCRAMBLE_LETTERS.length)];
+          })
+          .join("")
+      );
+
+      if (iteration >= target.length) {
+        window.clearInterval(brandInterval.current);
+        brandInterval.current = null;
+        setBrandText(target);
+        brandShowsDomain.current = !brandShowsDomain.current;
+      }
+      iteration += 1 / 3;
+    }, 30);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
@@ -150,9 +162,20 @@ function Header() {
     };
   }, []);
 
+  useEffect(() => () => window.clearInterval(brandInterval.current), []);
+
   return (
     <header className={"site-header" + (scrolled ? " scrolled" : "")}>
-      <a className="brand" href="#top" onClick={() => setMenuOpen(false)}>garrettaudet.com</a>
+      <a
+        className="brand"
+        href="#top"
+        aria-label="Garrett Audet home"
+        onClick={() => setMenuOpen(false)}
+        onFocus={transformBrand}
+        onPointerEnter={transformBrand}
+      >
+        <span aria-hidden="true">{brandText}</span>
+      </a>
       <button
         className="menu-button"
         type="button"
@@ -174,7 +197,7 @@ function Header() {
           </a>
         ))}
       </nav>
-      <a className="header-cta" href="#contact">Let&apos;s Connect</a>
+      <a className="header-cta" href="#contact">Connect with Me</a>
     </header>
   );
 }
@@ -188,19 +211,31 @@ function Hero() {
     const copy = copyRef.current;
     if (!hero || !copy) return undefined;
 
-    const updateCopyHeight = () => {
+    let frame = 0;
+    let lastBottom = -1;
+
+    const measureCopyHeight = () => {
+      frame = 0;
       const heroRect = hero.getBoundingClientRect();
       const copyRect = copy.getBoundingClientRect();
-      hero.style.setProperty("--hero-copy-bottom", Math.ceil(copyRect.bottom - heroRect.top) + "px");
+      const nextBottom = Math.ceil(copyRect.bottom - heroRect.top);
+      if (nextBottom === lastBottom) return;
+      lastBottom = nextBottom;
+      hero.style.setProperty("--hero-copy-bottom", nextBottom + "px");
     };
 
-    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(updateCopyHeight);
-    updateCopyHeight();
+    const requestCopyHeightUpdate = () => {
+      if (!frame) frame = requestAnimationFrame(measureCopyHeight);
+    };
+
+    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(requestCopyHeightUpdate);
+    measureCopyHeight();
     if (resizeObserver) resizeObserver.observe(copy);
-    window.addEventListener("resize", updateCopyHeight);
+    window.addEventListener("resize", requestCopyHeightUpdate);
     return () => {
+      if (frame) cancelAnimationFrame(frame);
       if (resizeObserver) resizeObserver.disconnect();
-      window.removeEventListener("resize", updateCopyHeight);
+      window.removeEventListener("resize", requestCopyHeightUpdate);
     };
   }, [heroRef]);
 
@@ -279,7 +314,51 @@ function AwardsStrip({ visible }) {
 function Experience() {
   const initial = Math.max(experiences.findIndex((item) => item.current), 0);
   const [activeIndex, setActiveIndex] = useState(initial);
+  const [connectorRatio, setConnectorRatio] = useState(null);
+  const listRef = useRef(null);
+  const rowRefs = useRef([]);
+  const connectorFrame = useRef(0);
   const [revealRef, visible] = useReveal();
+
+  const updateConnector = useCallback(() => {
+    const list = listRef.current;
+    const row = rowRefs.current[activeIndex];
+    if (!list || !row || !list.clientHeight) return;
+
+    const listRect = list.getBoundingClientRect();
+    const rowRect = row.getBoundingClientRect();
+    const rowCenter = rowRect.top + rowRect.height / 2 - listRect.top;
+    const nextRatio = Math.min(Math.max(rowCenter / list.clientHeight, 0), 1);
+    setConnectorRatio((current) =>
+      current !== null && Math.abs(current - nextRatio) < 0.001
+        ? current
+        : nextRatio,
+    );
+  }, [activeIndex]);
+
+  const requestConnectorUpdate = useCallback(() => {
+    if (connectorFrame.current) return;
+    connectorFrame.current = requestAnimationFrame(() => {
+      connectorFrame.current = 0;
+      updateConnector();
+    });
+  }, [updateConnector]);
+
+  useEffect(() => {
+    requestConnectorUpdate();
+    const list = listRef.current;
+    if (!list) return undefined;
+
+    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(requestConnectorUpdate);
+    if (observer) observer.observe(list);
+    window.addEventListener("resize", requestConnectorUpdate);
+    return () => {
+      if (connectorFrame.current) cancelAnimationFrame(connectorFrame.current);
+      connectorFrame.current = 0;
+      if (observer) observer.disconnect();
+      window.removeEventListener("resize", requestConnectorUpdate);
+    };
+  }, [activeIndex, requestConnectorUpdate]);
 
   return (
     <section className="experience section-shell" id="experience" aria-labelledby="experience-title">
@@ -287,12 +366,25 @@ function Experience() {
         <SectionLabel>Experience</SectionLabel>
         <h2 className="sr-only" id="experience-title">Professional experience</h2>
         <div className="experience-grid">
-          <ExperienceMap experiences={experiences} activeIndex={activeIndex} />
-          <div className="experience-list" aria-label="Professional experience timeline">
+          <ExperienceMap
+            experiences={experiences}
+            activeIndex={activeIndex}
+            connectorRatio={connectorRatio}
+          />
+          <div
+            className="experience-list"
+            aria-label="Professional experience timeline"
+            onScroll={requestConnectorUpdate}
+            ref={listRef}
+            tabIndex="0"
+          >
             {experiences.map((item, index) => (
               <article
                 className={"experience-row" + (index === activeIndex ? " active" : "") + (item.current ? " current" : "")}
                 key={item.id}
+                ref={(node) => {
+                  rowRefs.current[index] = node;
+                }}
                 style={{ "--experience-index": index }}
                 tabIndex="0"
                 onMouseEnter={() => setActiveIndex(index)}
@@ -313,8 +405,53 @@ function Experience() {
   );
 }
 
-function ProjectVisual({ type }) {
-  return <div className={"project-visual visual-" + type} aria-hidden="true"><i /><i /><i /><i /><i /></div>;
+function ProjectVisual({ project, playing, playKey }) {
+  const source = playing ? project.animation + "?play=" + playKey : project.poster;
+
+  return (
+    <div className={"project-visual" + (playing ? " playing" : "")} aria-hidden="true">
+      <img key={source} src={source} alt="" />
+    </div>
+  );
+}
+
+function ProjectCard({ project, index }) {
+  const [playing, setPlaying] = useState(false);
+  const [playKey, setPlayKey] = useState(0);
+
+  const startPlayback = () => {
+    if (prefersReducedMotion()) return;
+    setPlayKey((key) => key + 1);
+    setPlaying(true);
+  };
+
+  const stopPlayback = () => setPlaying(false);
+
+  const handleBlur = (event) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) stopPlayback();
+  };
+
+  return (
+    <article
+      className="project-card"
+      style={{ "--project-index": index }}
+      onPointerEnter={startPlayback}
+      onPointerLeave={stopPlayback}
+      onClick={startPlayback}
+      onFocus={startPlayback}
+      onBlur={handleBlur}
+    >
+      <ProjectVisual project={project} playing={playing} playKey={playKey} />
+      <h3>
+        <a href={project.href} target="_blank" rel="noreferrer">
+          {project.title}
+          <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
+        </a>
+      </h3>
+      <p>{project.description}</p>
+      <div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+    </article>
+  );
 }
 
 function Projects() {
@@ -361,7 +498,7 @@ function Projects() {
       <div ref={revealRef} className={"panel projects-panel reveal-section" + (visible ? " visible" : "")}>
         <div className="section-top">
           <SectionLabel>Technical Projects</SectionLabel>
-          <a href="#contact">View all projects <FontAwesomeIcon icon={faArrowRight} /></a>
+          <a href="https://github.com/GarrettAudet" target="_blank" rel="noreferrer">View all projects <FontAwesomeIcon icon={faArrowRight} /></a>
         </div>
         <h2 className="sr-only" id="projects-title">Technical projects</h2>
         <div className="carousel-shell">
@@ -369,12 +506,7 @@ function Projects() {
           <div className="project-viewport" ref={emblaRef} tabIndex="0" onKeyDown={handleKeys} aria-label="Project carousel">
             <div className="project-track">
               {projects.map((project, index) => (
-                <article className="project-card" style={{ "--project-index": index }} key={project.title}>
-                  <ProjectVisual type={project.visual} />
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                </article>
+                <ProjectCard project={project} index={index} key={project.title} />
               ))}
             </div>
           </div>
@@ -391,9 +523,41 @@ function Projects() {
   );
 }
 
+function PolicySwarmVisual() {
+  const [playing, setPlaying] = useState(false);
+  const [playKey, setPlayKey] = useState(0);
+
+  const startPlayback = () => {
+    if (prefersReducedMotion()) return;
+    setPlayKey((key) => key + 1);
+    setPlaying(true);
+  };
+
+  const stopPlayback = () => setPlaying(false);
+  const source = playing
+    ? "/images/policy-swarm.gif?play=" + playKey
+    : "/images/policy-swarm-poster.png";
+
+  return (
+    <div
+      className={"policy-swarm-frame" + (playing ? " playing" : "")}
+      role="img"
+      aria-label="A policy signal activating a multi-agent stakeholder network"
+      tabIndex="0"
+      onPointerEnter={startPlayback}
+      onPointerLeave={stopPlayback}
+      onClick={startPlayback}
+      onFocus={startPlayback}
+      onBlur={stopPlayback}
+    >
+      <img key={source} src={source} alt="" />
+      <span className="policy-swarm-play" aria-hidden="true"><FontAwesomeIcon icon={faPlay} /></span>
+    </div>
+  );
+}
+
 function Curiosities() {
   const [revealRef, visible] = useReveal();
-  const imageRef = useImageParallax();
   return (
     <section className="curiosities section-shell" id="insights" aria-labelledby="insights-title">
       <div ref={revealRef} className={"panel curiosities-panel reveal-section" + (visible ? " visible" : "")}>
@@ -409,8 +573,8 @@ function Curiosities() {
             ))}
           </ul>
           <article className="now-card">
-            <div className="now-copy"><span>Now</span><h3>What I&apos;m focused on</h3><p>Building applied AI tools for decision intelligence and exploring the future of human-AI collaboration.</p></div>
-            <div className="mountain-frame" ref={imageRef}><img src="/images/mountain-design.png" alt="A mountain trail at sunrise" /></div>
+            <div className="now-copy"><span>Now</span><h3>What I&apos;m focused on</h3><p>Simulating how public policies ripple through complex systems using multi-agent swarms.</p></div>
+            <PolicySwarmVisual />
           </article>
         </div>
       </div>
@@ -425,7 +589,7 @@ function Footer() {
     <footer className={"connect-footer section-shell" + (visible ? " visible" : "")} id="contact" ref={revealRef}>
       <div className="panel footer-panel">
         <div className="footer-intro">
-          <SectionLabel>Let&apos;s Connect</SectionLabel>
+          <SectionLabel>Connect with Me</SectionLabel>
           <h2>Let&apos;s build something impactful together.</h2>
           <span className="short-rule" aria-hidden="true" />
           <p>I&apos;m open to mission-driven opportunities at the intersection of data, strategy, and technology.</p>
