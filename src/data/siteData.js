@@ -104,7 +104,7 @@ export const experiences = [
     title: "Neo Financial — Senior Associate, Growth Strategy & Analytics",
     description:
       "Led growth strategy and analytics across a multimillion-dollar acquisition portfolio, improving customer volume while reducing acquisition costs.",
-    range: "2025",
+    range: "2025 - 2026",
     location: "Calgary, Alberta",
     coordinates: [-114.0719, 51.0447]
   },
