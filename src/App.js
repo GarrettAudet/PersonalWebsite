@@ -164,6 +164,23 @@ function Header() {
 
   useEffect(() => () => window.clearInterval(brandInterval.current), []);
 
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = (event) => {
+      if (event.matches) setMenuOpen(false);
+    };
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    desktopQuery.addEventListener("change", closeOnDesktop);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      desktopQuery.removeEventListener("change", closeOnDesktop);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
+
   return (
     <header className={"site-header" + (scrolled ? " scrolled" : "")}>
       <a
@@ -180,12 +197,13 @@ function Header() {
         className="menu-button"
         type="button"
         aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+        aria-controls="primary-navigation"
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
       >
         <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
       </button>
-      <nav className={"main-nav" + (menuOpen ? " open" : "")} aria-label="Primary navigation">
+      <nav id="primary-navigation" className={"main-nav" + (menuOpen ? " open" : "")} aria-label="Primary navigation">
         {navigation.map((item) => (
           <a
             className={active === item.href.slice(1) ? "active" : ""}

@@ -199,7 +199,9 @@ function particleCount(width) {
   if (width < 560) return 1200;
   if (width < 1000) return 2200;
   if (width < 1280) return 3000;
-  return 3600;
+  if (width < 1920) return 3600;
+  if (width < 2560) return 4200;
+  return 4800;
 }
 
 function buildMountainGeometry() {
@@ -826,7 +828,15 @@ export default function SignalCanvas() {
         cameraTarget.set(0.72, 0.15, -0.74);
       } else {
         camera.fov = 32;
-        destinationTargetX = 0.86;
+        const viewportWidth = window.innerWidth || width;
+        destinationTargetX =
+          viewportWidth >= 2560
+            ? 0.73
+            : viewportWidth >= 1920
+              ? 0.78
+              : viewportWidth >= 1600
+                ? 0.82
+                : 0.86;
         camera.position.set(-4.8, 6.8, 9);
         cameraTarget.set(0.1, 0.2, -0.72);
       }
