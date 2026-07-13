@@ -122,7 +122,7 @@
 }
 
 .webpage-final .hero {
-  height: 420px;
+  height: auto;
   min-height: 420px;
   padding-top: var(--header-height);
   background:
@@ -143,6 +143,7 @@
 .webpage-final .hero-inner {
   width: min(calc(100% - 48px), var(--content-max));
   min-height: calc(420px - var(--header-height));
+  padding-bottom: 28px;
   margin-inline: auto;
 }
 
@@ -212,9 +213,9 @@
 }
 
 .webpage-final .signal-canvas {
-  inset: var(--header-height) auto auto max(24px, calc((100% - var(--content-max)) / 2));
+  inset: var(--header-height) auto 0 max(24px, calc((100% - var(--content-max)) / 2));
   width: min(calc(100% - 48px), var(--content-max));
-  height: calc(420px - var(--header-height));
+  height: auto;
   animation-duration: 1600ms;
 }
 
@@ -700,58 +701,23 @@
 }
 
 .webpage-final .footer-orbit {
+  position: relative;
   width: 100%;
   max-width: 420px;
-  height: 150px;
+  height: 176px;
   justify-self: end;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 56%, rgba(255, 184, 77, 0.08), transparent 18%),
+    radial-gradient(circle at 34% 54%, rgba(0, 224, 255, 0.055), transparent 42%);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
 
 .webpage-final .footer-network {
   display: block;
   width: 100%;
   height: 100%;
-  overflow: visible;
-}
-
-.webpage-final .footer-network-lines path {
-  fill: none;
-  stroke-width: 1.2;
-  stroke-linecap: round;
-  stroke-dasharray: 8 8;
-  animation: footerNetworkFlow 6s linear infinite;
-  animation-delay: calc(var(--network-index) * -420ms);
-}
-
-.webpage-final .cyan-lines path {
-  stroke: rgba(0, 224, 255, 0.7);
-}
-
-.webpage-final .amber-lines path {
-  stroke: rgba(255, 138, 0, 0.72);
-}
-
-.webpage-final .footer-network-particles circle {
-  fill: var(--cyan-bright);
-  opacity: 0.62;
-  animation: footerParticlePulse 3.4s ease-in-out infinite;
-  animation-delay: calc(var(--particle-index) * -180ms);
-}
-
-.webpage-final .footer-network-particles circle:nth-child(n + 9) {
-  fill: var(--amber-bright);
-}
-
-.webpage-final .footer-network-halo {
-  fill: none;
-  stroke: rgba(255, 184, 77, 0.28);
-  animation: footerHaloPulse 2.8s ease-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.webpage-final .footer-network-node {
-  fill: var(--amber-bright);
+  opacity: 1;
 }
 
 .webpage-final .footer-bottom {
@@ -797,19 +763,6 @@
   transition-duration: 600ms;
 }
 
-@keyframes footerNetworkFlow {
-  to { stroke-dashoffset: -96; }
-}
-
-@keyframes footerParticlePulse {
-  0%, 100% { opacity: 0.28; }
-  50% { opacity: 0.92; }
-}
-
-@keyframes footerHaloPulse {
-  0% { opacity: 0.8; transform: scale(0.45); }
-  100% { opacity: 0; transform: scale(1.35); }
-}
 
 @media (max-width: 1199px) {
   .webpage-final .site-header {
@@ -1080,10 +1033,4 @@
   .webpage-final .hero-actions {
     grid-template-columns: 1fr;
   }
-}
-
-html.motion-reduced .webpage-final .footer-network-lines path,
-html.motion-reduced .webpage-final .footer-network-particles circle,
-html.motion-reduced .webpage-final .footer-network-halo {
-  animation: none !important;
 }

@@ -34,6 +34,7 @@ const canvasContext = {
   arc() {},
   beginPath() {},
   clearRect() {},
+  createLinearGradient() { return gradient; },
   createRadialGradient() { return gradient; },
   fill() {},
   fillRect() {},
