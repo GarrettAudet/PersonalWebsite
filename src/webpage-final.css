@@ -698,7 +698,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .webpage-final .project-card:hover .project-visual,
@@ -1972,8 +1972,8 @@
   }
 
   .webpage-final .project-visual {
-    height: clamp(138px, 9vw, 165px);
-    aspect-ratio: auto;
+    height: auto;
+    aspect-ratio: 16 / 9;
     margin-bottom: 18px;
   }
 
@@ -2103,8 +2103,8 @@
 
 @media (max-width: 767px) {
   .webpage-final .project-visual {
-    height: clamp(136px, 46vw, 260px);
-    aspect-ratio: auto;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }
 
