@@ -82,6 +82,7 @@ img { display: block; max-width: 100%; }
   transition: background-color var(--motion-md) var(--ease-standard), border-color var(--motion-md) var(--ease-standard), backdrop-filter var(--motion-md) var(--ease-standard);
 }
 .site-header.scrolled { border-color: var(--border); background: rgba(2, 10, 18, 0.86); backdrop-filter: blur(16px); }
+.header-snippet-exclusion { display: contents; }
 .brand { font-size: 0.94rem; font-weight: 450; }
 .main-nav { display: flex; align-items: center; gap: 36px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; }
 .main-nav a { position: relative; padding-block: 8px; color: var(--text-secondary); }

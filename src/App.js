@@ -25,6 +25,10 @@ import {
   projects,
   socialLinks,
 } from "./data/siteData";
+import {
+  safeAnalyticsDestination,
+  trackPortfolioEvent,
+} from "./analytics";
 import "./App.css";
 import "./webpage-final.css";
 
@@ -97,6 +101,71 @@ function SectionLabel({ number, children }) {
       {children}
     </p>
   );
+}
+
+function usePortfolioAnalytics() {
+  useEffect(() => {
+    trackPortfolioEvent("portfolio_page_view", { page_type: "profile" });
+
+    const seenSections = new Set();
+    const sections = document.querySelectorAll("main section[id], footer[id]");
+    const sectionObserver =
+      typeof IntersectionObserver === "undefined"
+        ? null
+        : new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                const sectionId = entry.target.id;
+                if (
+                  !entry.isIntersecting ||
+                  !sectionId ||
+                  seenSections.has(sectionId)
+                ) {
+                  return;
+                }
+                seenSections.add(sectionId);
+                trackPortfolioEvent("portfolio_section_view", {
+                  section_id: sectionId,
+                });
+              });
+            },
+            { rootMargin: "0px 0px -15% 0px", threshold: 0.35 },
+          );
+
+    if (sectionObserver) {
+      sections.forEach((section) => sectionObserver.observe(section));
+    }
+
+    const handleClick = (event) => {
+      const target =
+        event.target instanceof Element
+          ? event.target.closest("[data-analytics-event]")
+          : null;
+      if (!target) return;
+
+      const region = target.closest("header, main section[id], footer[id]");
+      const eventLocation =
+        target.dataset.analyticsLocation ||
+        region?.id ||
+        region?.tagName.toLowerCase() ||
+        "site";
+
+      trackPortfolioEvent(target.dataset.analyticsEvent, {
+        event_label:
+          target.dataset.analyticsLabel || target.textContent || "interaction",
+        event_location: eventLocation,
+        link_destination: safeAnalyticsDestination(
+          target.getAttribute("href"),
+        ),
+      });
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => {
+      if (sectionObserver) sectionObserver.disconnect();
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
 }
 
 function Header() {
@@ -183,39 +252,62 @@ function Header() {
 
   return (
     <header className={"site-header" + (scrolled ? " scrolled" : "")}>
-      <a
-        className="brand"
-        href="#top"
-        aria-label="Garrett Audet home"
-        onClick={() => setMenuOpen(false)}
-        onFocus={transformBrand}
-        onPointerEnter={transformBrand}
-      >
-        <span aria-hidden="true">{brandText}</span>
-      </a>
-      <button
-        className="menu-button"
-        type="button"
-        aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-        aria-controls="primary-navigation"
-        aria-expanded={menuOpen}
-        onClick={() => setMenuOpen((open) => !open)}
-      >
-        <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
-      </button>
-      <nav id="primary-navigation" className={"main-nav" + (menuOpen ? " open" : "")} aria-label="Primary navigation">
-        {navigation.map((item) => (
-          <a
-            className={active === item.href.slice(1) ? "active" : ""}
-            href={item.href}
-            key={item.href}
-            onClick={() => setMenuOpen(false)}
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
-      <a className="header-cta" href="#contact">Connect with Me</a>
+      <div className="header-snippet-exclusion" data-nosnippet>
+        <a
+          className="brand"
+          href="#top"
+          aria-label="Garrett Audet home"
+          data-analytics-event="portfolio_navigation_click"
+          data-analytics-label="home"
+          data-analytics-location="header"
+          onClick={() => setMenuOpen(false)}
+          onFocus={transformBrand}
+          onPointerEnter={transformBrand}
+        >
+          <span aria-hidden="true">{brandText}</span>
+        </a>
+        <button
+          className="menu-button"
+          type="button"
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          aria-controls="primary-navigation"
+          aria-expanded={menuOpen}
+          data-analytics-event="portfolio_navigation_toggle"
+          data-analytics-label={menuOpen ? "close menu" : "open menu"}
+          data-analytics-location="header"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
+        </button>
+        <nav
+          id="primary-navigation"
+          className={"main-nav" + (menuOpen ? " open" : "")}
+          aria-label="Primary navigation"
+        >
+          {navigation.map((item) => (
+            <a
+              className={active === item.href.slice(1) ? "active" : ""}
+              href={item.href}
+              key={item.href}
+              data-analytics-event="portfolio_navigation_click"
+              data-analytics-label={item.label}
+              data-analytics-location="header"
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <a
+          className="header-cta"
+          href="#contact"
+          data-analytics-event="portfolio_cta_click"
+          data-analytics-label="connect with me"
+          data-analytics-location="header"
+        >
+          Connect with Me
+        </a>
+      </div>
     </header>
   );
 }
@@ -269,8 +361,24 @@ function Hero() {
             I build analytical systems and machine learning solutions that turn complex signals into confident decisions&mdash;and measurable impact.
           </p>
           <div className="hero-actions">
-            <a className="button primary" href="#projects">Explore My Work <FontAwesomeIcon icon={faArrowRight} /></a>
-            <a className="button secondary" href="#about">Learn More <FontAwesomeIcon icon={faArrowDown} /></a>
+            <a
+              className="button primary"
+              href="#projects"
+              data-analytics-event="portfolio_cta_click"
+              data-analytics-label="explore my work"
+              data-analytics-location="hero"
+            >
+              Explore My Work <FontAwesomeIcon icon={faArrowRight} />
+            </a>
+            <a
+              className="button secondary"
+              href="#about"
+              data-analytics-event="portfolio_cta_click"
+              data-analytics-label="learn more"
+              data-analytics-location="hero"
+            >
+              Learn More <FontAwesomeIcon icon={faArrowDown} />
+            </a>
           </div>
         </div>
 
@@ -409,6 +517,9 @@ function Experience() {
                 onFocus={() => setActiveIndex(index)}
                 onClick={() => setActiveIndex(index)}
                 aria-label={item.title + ", " + item.range}
+                data-analytics-event="portfolio_experience_select"
+                data-analytics-label={item.title}
+                data-analytics-location="experience"
               >
                 <span className="hex-icon">{item.code}</span>
                 <div><h3>{item.title}</h3><p>{item.description}</p></div>
@@ -436,9 +547,17 @@ function ProjectVisual({ project, playing, playKey }) {
 function ProjectCard({ project, index }) {
   const [playing, setPlaying] = useState(false);
   const [playKey, setPlayKey] = useState(0);
+  const previewTracked = useRef(false);
 
   const startPlayback = () => {
     if (prefersReducedMotion()) return;
+    if (!previewTracked.current) {
+      previewTracked.current = true;
+      trackPortfolioEvent("portfolio_project_preview", {
+        project_name: project.title,
+        event_location: "projects",
+      });
+    }
     setPlayKey((key) => key + 1);
     setPlaying(true);
   };
@@ -461,7 +580,14 @@ function ProjectCard({ project, index }) {
     >
       <ProjectVisual project={project} playing={playing} playKey={playKey} />
       <h3>
-        <a href={project.href} target="_blank" rel="noreferrer">
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noreferrer"
+          data-analytics-event="portfolio_project_open"
+          data-analytics-label={project.title}
+          data-analytics-location="projects"
+        >
           {project.title}
           <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
         </a>
@@ -503,10 +629,20 @@ function Projects() {
     if (!emblaApi) return;
     if (event.key === "ArrowLeft") {
       event.preventDefault();
+      trackPortfolioEvent("portfolio_carousel", {
+        event_label: "previous",
+        event_location: "projects",
+        interaction_type: "keyboard",
+      });
       emblaApi.scrollPrev();
     }
     if (event.key === "ArrowRight") {
       event.preventDefault();
+      trackPortfolioEvent("portfolio_carousel", {
+        event_label: "next",
+        event_location: "projects",
+        interaction_type: "keyboard",
+      });
       emblaApi.scrollNext();
     }
   };
@@ -516,11 +652,31 @@ function Projects() {
       <div ref={revealRef} className={"panel projects-panel reveal-section" + (visible ? " visible" : "")}>
         <div className="section-top">
           <SectionLabel>Technical Projects</SectionLabel>
-          <a href="https://github.com/GarrettAudet" target="_blank" rel="noreferrer">View all projects <FontAwesomeIcon icon={faArrowRight} /></a>
+          <a
+            href="https://github.com/GarrettAudet"
+            target="_blank"
+            rel="me noreferrer"
+            data-analytics-event="portfolio_project_open"
+            data-analytics-label="view all projects"
+            data-analytics-location="projects"
+          >
+            View all projects <FontAwesomeIcon icon={faArrowRight} />
+          </a>
         </div>
         <h2 className="sr-only" id="projects-title">Technical projects</h2>
         <div className="carousel-shell">
-          <button className="carousel-button prev" type="button" aria-label="Previous projects" disabled={!canPrev} onClick={() => emblaApi && emblaApi.scrollPrev()}><FontAwesomeIcon icon={faChevronLeft} /></button>
+          <button
+            className="carousel-button prev"
+            type="button"
+            aria-label="Previous projects"
+            disabled={!canPrev}
+            data-analytics-event="portfolio_carousel"
+            data-analytics-label="previous"
+            data-analytics-location="projects"
+            onClick={() => emblaApi && emblaApi.scrollPrev()}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
           <div className="project-viewport" ref={emblaRef} tabIndex="0" onKeyDown={handleKeys} aria-label="Project carousel">
             <div className="project-track">
               {projects.map((project, index) => (
@@ -528,11 +684,32 @@ function Projects() {
               ))}
             </div>
           </div>
-          <button className="carousel-button next" type="button" aria-label="Next projects" disabled={!canNext} onClick={() => emblaApi && emblaApi.scrollNext()}><FontAwesomeIcon icon={faChevronRight} /></button>
+          <button
+            className="carousel-button next"
+            type="button"
+            aria-label="Next projects"
+            disabled={!canNext}
+            data-analytics-event="portfolio_carousel"
+            data-analytics-label="next"
+            data-analytics-location="projects"
+            onClick={() => emblaApi && emblaApi.scrollNext()}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
         </div>
         <div className="pagination" aria-label="Project pages">
           {Array.from({ length: snapCount }, (_, index) => (
-            <button type="button" className={index === selected ? "active" : ""} aria-label={"Show project page " + (index + 1)} aria-current={index === selected ? "true" : undefined} onClick={() => emblaApi && emblaApi.scrollTo(index)} key={index} />
+            <button
+              type="button"
+              className={index === selected ? "active" : ""}
+              aria-label={"Show project page " + (index + 1)}
+              aria-current={index === selected ? "true" : undefined}
+              data-analytics-event="portfolio_carousel"
+              data-analytics-label={"page " + (index + 1)}
+              data-analytics-location="projects"
+              onClick={() => emblaApi && emblaApi.scrollTo(index)}
+              key={index}
+            />
           ))}
         </div>
         <p className="sr-only" aria-live="polite">Project page {selected + 1} of {snapCount}</p>
@@ -544,9 +721,17 @@ function Projects() {
 function PolicySwarmVisual() {
   const [playing, setPlaying] = useState(false);
   const [playKey, setPlayKey] = useState(0);
+  const previewTracked = useRef(false);
 
   const startPlayback = () => {
     if (prefersReducedMotion()) return;
+    if (!previewTracked.current) {
+      previewTracked.current = true;
+      trackPortfolioEvent("portfolio_policy_preview", {
+        event_label: "policy swarm",
+        event_location: "insights",
+      });
+    }
     setPlayKey((key) => key + 1);
     setPlaying(true);
   };
@@ -611,11 +796,27 @@ function Footer() {
           <h2>Let&apos;s build something impactful together.</h2>
           <span className="short-rule" aria-hidden="true" />
           <p>I&apos;m open to mission-driven opportunities at the intersection of data, strategy, and technology.</p>
-          <a className="button primary footer-cta" href="mailto:garrett.audet@gmail.com">Get in Touch <FontAwesomeIcon icon={faArrowRight} /></a>
+          <a
+            className="button primary footer-cta"
+            href="mailto:garrett.audet@gmail.com"
+            data-analytics-event="portfolio_contact_click"
+            data-analytics-label="email"
+            data-analytics-location="contact"
+          >
+            Get in Touch <FontAwesomeIcon icon={faArrowRight} />
+          </a>
         </div>
         <nav className="contact-list" aria-label="Contact links">
           {socialLinks.map((item, index) => (
-            <a href={item.href} key={item.label} style={{ "--social-index": index }}>
+            <a
+              href={item.href}
+              key={item.label}
+              rel={item.href.startsWith("http") ? "me" : undefined}
+              style={{ "--social-index": index }}
+              data-analytics-event="portfolio_contact_click"
+              data-analytics-label={item.label}
+              data-analytics-location="contact"
+            >
               <span className="contact-icon"><FontAwesomeIcon icon={item.icon} /></span>
               <span><small>{item.label}</small><strong>{item.display}</strong></span>
             </a>
@@ -635,6 +836,8 @@ function Footer() {
 }
 
 export default function App() {
+  usePortfolioAnalytics();
+
   return (
     <div className="portfolio-app webpage-final">
       <Header />

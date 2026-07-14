@@ -12,6 +12,7 @@ test("renders the approved webpage-final portfolio journey", () => {
   expect(screen.getByRole("link", { name: /connect with me/i })).toHaveAttribute("href", "#contact");
   expect(document.querySelector(".signal-tagline")).not.toBeInTheDocument();
   expect(document.querySelector(".footer-network")).toBeInTheDocument();
+  expect(document.querySelector(".header-snippet-exclusion")).toHaveAttribute("data-nosnippet");
   expect(screen.getByLabelText("Awards and distinctions").querySelectorAll("li")).toHaveLength(6);
   expect(screen.getByRole("button", { name: /next projects/i })).toBeInTheDocument();
   expect(screen.getByRole("heading", { name: /curiosities and current focus/i })).toBeInTheDocument();
@@ -36,4 +37,36 @@ test("transforms the header brand between the domain and name", () => {
 
   jest.clearAllTimers();
   jest.useRealTimers();
+});
+
+
+test("publishes structured analytics events for meaningful interactions", () => {
+  window.dataLayer = [];
+  render(<App />);
+
+  expect(window.dataLayer).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        event: "portfolio_page_view",
+        page_type: "profile",
+      }),
+      expect.objectContaining({
+        event: "portfolio_section_view",
+        section_id: "top",
+      }),
+    ]),
+  );
+
+  fireEvent.click(screen.getByRole("link", { name: /explore my work/i }));
+
+  expect(window.dataLayer).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        event: "portfolio_cta_click",
+        event_label: "explore my work",
+        event_location: "hero",
+        link_destination: "#projects",
+      }),
+    ]),
+  );
 });
